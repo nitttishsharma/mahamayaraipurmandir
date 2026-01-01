@@ -1,10 +1,33 @@
-import React from 'react';
-import { galleryImages } from '../data/gallery';
+import React, { useEffect, useState } from 'react';
+import { supabase } from '../supabaseClient';
 import { useLanguage } from '../context/LanguageContext';
+import { Loader } from 'lucide-react';
 
 const Gallery = () => {
     const { t, language } = useLanguage();
-    const images = galleryImages[language] || galleryImages.en;
+    const [images, setImages] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchImages();
+    }, []);
+
+    const fetchImages = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('gallery')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+            setImages(data || []);
+        } catch (error) {
+            console.error('Error fetching gallery:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="bg-cream min-h-screen">
             {/* Hero / Header Section */}
@@ -32,28 +55,37 @@ const Gallery = () => {
                 <div className="absolute inset-0 bg-temple-pattern bg-repeat opacity-5 pointer-events-none"></div>
 
                 <div className="max-w-7xl mx-auto relative z-10">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {images.map((image, index) => (
-                            <div key={image.id} className={`relative group overflow-hidden rounded-xl shadow-lg border border-amber-100 ${index % 3 === 0 ? 'md:row-span-2 h-96' : 'h-64'}`}>
-                                <img
-                                    src={image.src}
-                                    alt={image.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                                    <p className="text-white font-serif text-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                        {image.title}
-                                    </p>
+                    {loading ? (
+                        <div className="flex justify-center items-center py-20">
+                            <Loader className="w-10 h-10 text-primary animate-spin" />
+                        </div>
+                    ) : images.length === 0 ? (
+                        <div className="text-center py-10 text-gray-500">
+                            <p>No images in the gallery yet.</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {images.map((image, index) => (
+                                <div key={image.id} className={`relative group overflow-hidden rounded-xl shadow-lg border border-amber-100 ${index % 3 === 0 ? 'md:row-span-2 h-96' : 'h-64'}`}>
+                                    <img
+                                        src={image.image_url}
+                                        alt={language === 'hi' ? image.title_hi : image.title_en}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                                        <div>
+                                            <p className="text-white font-serif text-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                                {language === 'hi' ? image.title_hi : image.title_en}
+                                            </p>
+                                            <p className="text-accent text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+                                                {language === 'hi' ? image.category_hi : image.category_en}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="text-center mt-16">
-                        <button className="bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white px-10 py-3 rounded-full font-semibold transition-all duration-300 uppercase tracking-widest text-sm">
-                            {t('galleryPage', 'loadMore')}
-                        </button>
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </section>
         </div>

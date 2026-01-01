@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -21,25 +21,49 @@ function ScrollToTop() {
   return null;
 }
 
+import Login from './pages/admin/Login';
+import AdminLayout from './components/admin/AdminLayout';
+import Dashboard from './pages/admin/Dashboard';
+
+import EventsManager from './pages/admin/EventsManager';
+import GalleryManager from './pages/admin/GalleryManager';
+import CommitteeManager from './pages/admin/CommitteeManager';
+import DonationsManager from './pages/admin/DonationsManager';
+
 function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="min-h-screen bg-cream selection:bg-primary selection:text-white flex flex-col">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/committee" element={<Committee />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/donation" element={<Donation />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <Routes>
+        {/* Public Routes with Navbar and Footer */}
+        <Route element={
+          <div className="min-h-screen bg-cream selection:bg-primary selection:text-white flex flex-col">
+            <Navbar />
+            <main className="flex-grow">
+              <Outlet />
+            </main>
+            <Footer />
+          </div>
+        }>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/committee" element={<Committee />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/donation" element={<Donation />} />
+          <Route path="/contact" element={<Contact />} />
+        </Route>
+
+        {/* Admin Routes */}
+        <Route path="/admin/login" element={<Login />} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="events" element={<EventsManager />} />
+          <Route path="gallery" element={<GalleryManager />} />
+          <Route path="committee" element={<CommitteeManager />} />
+          <Route path="donations" element={<DonationsManager />} />
+        </Route>
+      </Routes>
     </Router>
   );
 }

@@ -1,14 +1,56 @@
-import React from 'react';
-import { CreditCard, Smartphone, Heart, Copy } from 'lucide-react';
-import { donationCampaigns, bankDetails, upiDetails, donationStats } from '../data/donations';
+import React, { useEffect, useState } from 'react';
+import { CreditCard, Smartphone, Heart, Copy, Loader, RefreshCw } from 'lucide-react';
+import { bankDetails, upiDetails } from '../data/donations';
 import { useLanguage } from '../context/LanguageContext';
+import { supabase } from '../supabaseClient';
 
 const Donation = () => {
     const { t, language } = useLanguage();
-    const campaigns = donationCampaigns[language] || donationCampaigns.en;
+    const [campaigns, setCampaigns] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [stats, setStats] = useState({
+        totalRaised: 0,
+        goal: 0,
+        contributors: 1200, // Placeholder as we don't track individual contributors yet
+        daysLeft: 5
+    });
+
+    useEffect(() => {
+        fetchCampaigns();
+    }, []);
+
+    const fetchCampaigns = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('donations')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+
+            const fetchedCampaigns = data || [];
+            setCampaigns(fetchedCampaigns);
+
+            // Calculate stats
+            const totalRaised = fetchedCampaigns.reduce((acc, curr) => acc + (Number(curr.raised) || 0), 0);
+            const totalGoal = fetchedCampaigns.reduce((acc, curr) => acc + (Number(curr.goal) || 0), 0);
+
+            setStats(prev => ({
+                ...prev,
+                totalRaised,
+                goal: totalGoal
+            }));
+
+        } catch (error) {
+            console.error('Error fetching campaigns:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const handleCopy = (text) => {
         navigator.clipboard.writeText(text);
-        // Could add a toast notification here
+        alert('Copied to clipboard!');
     };
 
     return (
@@ -27,33 +69,60 @@ const Donation = () => {
                 </div>
 
                 {/* Campaigns Scroll/Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-                    {campaigns.map((campaign) => (
-                        <div key={campaign.id} className="bg-white rounded-xl shadow-lg overflow-hidden border border-amber-100 group hover:-translate-y-1 transition-transform duration-300">
-                            <div className="h-48 overflow-hidden relative">
-                                <img
-                                    src={campaign.image}
-                                    alt={campaign.title}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                />
-                                {campaign.daysLeft > 0 && (
-                                    <div className="absolute top-4 left-4 bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded">
-                                        {campaign.daysLeft} {t('donationPage', 'daysLeft')}
+                {loading ? (
+                    <div className="flex justify-center items-center py-20 mb-20">
+                        <Loader className="w-10 h-10 text-primary animate-spin" />
+                    </div>
+                ) : campaigns.length === 0 ? (
+                    <div className="text-center py-10 mb-20 text-gray-500">
+                        <p>No active donation campaigns.</p>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+                        {campaigns.map((campaign) => (
+                            <div key={campaign.id} className="bg-white rounded-xl shadow-lg overflow-hidden border border-amber-100 group hover:-translate-y-1 transition-transform duration-300">
+                                <div className="h-48 overflow-hidden relative">
+                                    <img
+                                        src={campaign.image_url || '/images/common/placeholder.jpg'}
+                                        alt={language === 'hi' ? campaign.title_hi : campaign.title_en}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    />
+                                    {campaign.days_left > 0 && (
+                                        <div className="absolute top-4 left-4 bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded">
+                                            {campaign.days_left} {t('donationPage', 'daysLeft')}
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="p-6">
+                                    <h3 className="text-xl font-serif text-primary mb-2">
+                                        {language === 'hi' ? campaign.title_hi : campaign.title_en}
+                                    </h3>
+                                    <p className="text-sm text-darkText/70 mb-4 line-clamp-3">
+                                        {language === 'hi' ? campaign.description_hi : campaign.description_en}
+                                    </p>
+
+                                    {/* Progress Bar for individual campaign */}
+                                    <div className="mb-4">
+                                        <div className="flex justify-between text-xs mb-1 font-semibold text-gray-500">
+                                            <span>₹{campaign.raised}</span>
+                                            <span>₹{campaign.goal}</span>
+                                        </div>
+                                        <div className="w-full bg-gray-100 rounded-full h-2">
+                                            <div
+                                                className="bg-secondary h-2 rounded-full"
+                                                style={{ width: `${Math.min((campaign.raised / campaign.goal) * 100, 100)}%` }}
+                                            ></div>
+                                        </div>
                                     </div>
-                                )}
+
+                                    <button className="w-full bg-secondary hover:bg-amber-600 text-white py-2 rounded-full font-bold transition-colors">
+                                        {t('donationPage', 'donateBtn')}
+                                    </button>
+                                </div>
                             </div>
-                            <div className="p-6">
-                                <h3 className="text-xl font-serif text-primary mb-2">{campaign.title}</h3>
-                                <p className="text-sm text-darkText/70 mb-4 line-clamp-3">
-                                    {campaign.desc}
-                                </p>
-                                <button className="w-full bg-secondary hover:bg-amber-600 text-white py-2 rounded-full font-bold transition-colors">
-                                    {t('donationPage', 'donateBtn')}
-                                </button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                )}
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                     {/* Other Donation Methods */}
@@ -121,38 +190,38 @@ const Donation = () => {
                         </div>
                     </div>
 
-                    {/* Progress / Total Donation */}
+                    {/* Progress / Total Donation - Dynamically Calculated */}
                     <div className="bg-white p-8 rounded-xl shadow-xl border-t-8 border-secondary relative overflow-hidden">
                         <div className="absolute top-0 right-0 p-4 opacity-10">
                             <Heart size={120} className="text-secondary" />
                         </div>
 
-                        <h3 className="text-5xl font-serif text-darkText mb-2">₹{donationStats.totalRaised.toLocaleString()}</h3>
+                        <h3 className="text-5xl font-serif text-darkText mb-2">₹{stats.totalRaised.toLocaleString()}</h3>
                         <p className="text-gray-500 mb-6 font-medium">{t('donationPage', 'totalRaised')}</p>
 
                         <div className="w-full bg-gray-100 rounded-full h-3 mb-2">
-                            <div className="bg-secondary h-3 rounded-full" style={{ width: `${(donationStats.totalRaised / donationStats.goal) * 100}%` }}></div>
+                            <div className="bg-secondary h-3 rounded-full" style={{ width: `${Math.min((stats.totalRaised / (stats.goal || 1)) * 100, 100)}%` }}></div>
                         </div>
 
                         <div className="flex justify-between text-sm mb-8">
                             <div>
                                 <p className="text-gray-500">{t('donationPage', 'goal')}</p>
-                                <p className="font-bold text-darkText">₹{donationStats.goal.toLocaleString()}</p>
+                                <p className="font-bold text-darkText">₹{stats.goal.toLocaleString()}</p>
                             </div>
                             <div className="text-right">
                                 <p className="text-gray-500">{t('donationPage', 'remaining')}</p>
-                                <p className="font-bold text-darkText">₹{(donationStats.goal - donationStats.totalRaised).toLocaleString()}</p>
+                                <p className="font-bold text-darkText">₹{Math.max(stats.goal - stats.totalRaised, 0).toLocaleString()}</p>
                             </div>
                         </div>
 
                         <div className="space-y-4 mb-8">
                             <div className="flex items-center text-darkText/80">
-                                <span className="w-8 text-center mr-3 font-bold">{donationStats.daysLeft}</span>
+                                <span className="w-8 text-center mr-3 font-bold">{stats.daysLeft}</span>
                                 <span>{t('donationPage', 'daysLeft')}</span>
                             </div>
                             <div className="flex items-center text-darkText/80">
                                 <Heart className="w-5 h-5 mr-3 text-red-500 fill-current" />
-                                <span>{donationStats.contributors} {t('donationPage', 'contributors')}</span>
+                                <span>{stats.contributors} {t('donationPage', 'contributors')}</span>
                             </div>
                         </div>
 

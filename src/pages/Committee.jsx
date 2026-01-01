@@ -1,10 +1,33 @@
-import React from 'react';
-import { committeeMembers } from '../data/committee';
+import React, { useEffect, useState } from 'react';
+import { supabase } from '../supabaseClient';
 import { useLanguage } from '../context/LanguageContext';
+import { Loader, User } from 'lucide-react';
 
 const Committee = () => {
     const { t, language } = useLanguage();
-    const members = committeeMembers[language] || committeeMembers.en;
+    const [members, setMembers] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchMembers();
+    }, []);
+
+    const fetchMembers = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('committee')
+                .select('*')
+                .order('member_order', { ascending: true });
+
+            if (error) throw error;
+            setMembers(data || []);
+        } catch (error) {
+            console.error('Error fetching committee:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <section className="py-24 bg-cream relative overflow-hidden">
             {/* Background Pattern */}
@@ -19,29 +42,42 @@ const Committee = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {members.map((member) => (
-                        <div key={member.id} className="bg-white rounded-2xl p-6 shadow-lg border border-amber-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center group">
-                            <div className="w-32 h-32 mx-auto mb-4 rounded-full border-4 border-secondary/20 p-1 group-hover:border-secondary transition-colors duration-300">
-                                <div className="w-full h-full rounded-full bg-gray-200 overflow-hidden">
-                                    {/* Placeholder for member image, or use initial if no image */}
-                                    {member.image ? (
-                                        <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center bg-primary text-white text-3xl font-serif">
-                                            {member.name.charAt(0)}
-                                        </div>
-                                    )}
+                {loading ? (
+                    <div className="flex justify-center items-center py-20">
+                        <Loader className="w-10 h-10 text-primary animate-spin" />
+                    </div>
+                ) : members.length === 0 ? (
+                    <div className="text-center py-10 text-gray-500">
+                        <p>No committee members listed.</p>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {members.map((member) => (
+                            <div key={member.id} className="bg-white rounded-2xl p-6 shadow-lg border border-amber-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center group">
+                                <div className="w-32 h-32 mx-auto mb-4 rounded-full border-4 border-secondary/20 p-1 group-hover:border-secondary transition-colors duration-300">
+                                    <div className="w-full h-full rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+                                        {member.image_url ? (
+                                            <img src={member.image_url} alt={language === 'hi' ? member.name_hi : member.name_en} className="w-full h-full object-cover" />
+                                        ) : (
+                                            <div className="text-primary text-3xl font-serif">
+                                                <User className="w-12 h-12" />
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
+
+                                <h3 className="text-xl font-serif text-primary font-bold mb-1">
+                                    {language === 'hi' ? member.name_hi : member.name_en}
+                                </h3>
+                                <p className="text-secondary font-medium text-sm uppercase tracking-wider">
+                                    {language === 'hi' ? member.role_hi : member.role_en}
+                                </p>
+
+                                <div className="mt-4 w-12 h-0.5 bg-gray-200 mx-auto group-hover:bg-accent transition-colors"></div>
                             </div>
-
-                            <h3 className="text-xl font-serif text-primary font-bold mb-1">{member.name}</h3>
-                            <p className="text-secondary font-medium text-sm uppercase tracking-wider">{member.role}</p>
-
-                            <div className="mt-4 w-12 h-0.5 bg-gray-200 mx-auto group-hover:bg-accent transition-colors"></div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </section>
     );
