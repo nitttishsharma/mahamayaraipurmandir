@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, Navigate, useNavigate, Link, useLocation } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
-import { LayoutDashboard, Calendar, Image, Users, Heart, LogOut } from 'lucide-react';
+import { LayoutDashboard, Calendar, Image, Users, Heart, LogOut, Settings } from 'lucide-react';
 
 const AdminLayout = () => {
     const [session, setSession] = useState(null);
@@ -43,6 +43,7 @@ const AdminLayout = () => {
         { name: 'Gallery', path: '/admin/gallery', icon: <Image size={20} /> },
         { name: 'Committee', path: '/admin/committee', icon: <Users size={20} /> },
         { name: 'Donations', path: '/admin/donations', icon: <Heart size={20} /> },
+        { name: 'Settings', path: '/admin/settings', icon: <Settings size={20} /> },
     ];
 
     return (
@@ -60,8 +61,8 @@ const AdminLayout = () => {
                             key={item.path}
                             to={item.path}
                             className={`flex items-center px-4 py-3 rounded-lg transition-colors group ${location.pathname === item.path
-                                    ? 'bg-white/20 text-white font-medium'
-                                    : 'text-white/70 hover:bg-white/10 hover:text-white'
+                                ? 'bg-white/20 text-white font-medium'
+                                : 'text-white/70 hover:bg-white/10 hover:text-white'
                                 }`}
                         >
                             <span className="mr-3">{item.icon}</span>

@@ -7,7 +7,11 @@ export const translations = {
             gallery: "Gallery",
             committee: "Committee",
             contact: "Contact",
-            donate: "Donate"
+            donate: "Donate",
+            onlineServices: "Online Services",
+            onlineSevas: "Online Sevas",
+            seniorCitizen: "Sr. Citizen Darshan",
+            specialEntry: "Special Entry Darshan"
         },
         hero: {
             title: "Shree Mahamaya Devi Temple",
@@ -109,6 +113,53 @@ export const translations = {
             privacyPolicy: "Privacy Policy",
             termsOfService: "Terms of Service",
             rightsReserved: "All rights reserved."
+        },
+        onlineSevasPage: {
+            title: "Online Sevas & Live Darshan",
+            subtitle: "Join us for live Darshan of the Mata. Watch live Aarti and special rituals via the links below.",
+            youtubeTitle: "YouTube Live",
+            youtubeDesc: "Daily Aarti & Darshan",
+            youtubeSub: "Subscribe to our official YouTube channel to get notified when we go live.",
+            watchYoutube: "Watch on YouTube App",
+            facebookTitle: "Facebook Live",
+            facebookDesc: "Community Events & Updates",
+            facebookSub: "Follow our Facebook page for live event coverage and community interactions.",
+            watchFacebook: "Watch on Facebook App",
+            streamPlaceholder: "Stream loads here when live"
+        },
+        seniorCitizenPage: {
+            title: "Differently Abled / Sr. Citizen Darshan",
+            subtitle: "We are committed to ensuring accessible and comfortable Darshan for all devotees.",
+            wheelchairTitle: "Wheelchair Access",
+            wheelchairDesc: "Ramps and wheelchair assistance are available at the main entrance. Our volunteers are always ready to assist.",
+            priorityTitle: "Priority Queue",
+            priorityDesc: "A separate, faster queue is maintained for senior citizens (60+) and differently-abled persons to minimize waiting time.",
+            timingsTitle: "Timings & Guidelines",
+            timeInfo: "Available daily during temple opening hours (6:00 AM - 9:00 PM).",
+            idProof: "Please carry valid ID proof (Aadhar/Voter ID) for age verification.",
+            attendant: "One attendant is allowed to accompany differently-abled devotees.",
+            assistance: "For any special assistance prior to your visit, please contact us:",
+            callHelpline: "Call Helpline"
+        },
+        specialEntryPage: {
+            title: "Special Entry Darshan",
+            subtitle: "Beat the rush and experience a divine and peaceful Darshan.",
+            sheeghraTitle: "Sheeghra Darshan",
+            expressEntry: "Express Entry",
+            person: "/ person",
+            sheeghraFeature1: "Dedicated Queue Line",
+            sheeghraFeature2: "Closer View of Deity",
+            sheeghraFeature3: "Laddu Prasadam included",
+            bookingComingSoon: "Booking Coming Soon",
+            visheshTitle: "Vishesh Pooja",
+            specialRituals: "Special Rituals",
+            mostPopular: "Most Popular",
+            family: "/ family",
+            visheshFeature1: "Sankalp Pooja in your Name",
+            visheshFeature2: "Priority Darshan for 4 members",
+            visheshFeature3: "Special Prasadam Pack",
+            onlineBookingTitle: "Online Booking Feature",
+            onlineBookingDesc: "The online ticket booking facility is currently under development. Tickets for Special Darshan can be purchased directly from the temple counter near the East Gate."
         }
     },
     hi: {
@@ -119,7 +170,11 @@ export const translations = {
             gallery: "तस्वीरें",
             committee: "समिति",
             contact: "संपर्क",
-            donate: "दान करें"
+            donate: "दान करें",
+            onlineServices: "ऑनलाइन सेवाएं",
+            onlineSevas: "ऑनलाइन सेवा",
+            seniorCitizen: "वरिष्ठ नागरिक दर्शन",
+            specialEntry: "शीघ्र दर्शन / विशेष प्रवेश"
         },
         hero: {
             title: "श्री महामाया देवी मंदिर",
@@ -221,6 +276,53 @@ export const translations = {
             privacyPolicy: "गोपनीयता नीति",
             termsOfService: "सेवा की शर्तें",
             rightsReserved: "सर्वाधिकार सुरक्षित।"
+        },
+        onlineSevasPage: {
+            title: "ऑनलाइन सेवा और लाइव दर्शन",
+            subtitle: "माता के लाइव दर्शन के लिए हमारे साथ जुड़ें। नीचे दिए गए लिंक पर लाइव आरती और विशेष अनुष्ठान देखें।",
+            youtubeTitle: "यूट्यूब लाइव",
+            youtubeDesc: "दैनिक आरती और दर्शन",
+            youtubeSub: "हमारा आधिकारिक यूट्यूब चैनल सब्सक्राइब करें और लाइव दर्शन का लाभ उठाएं।",
+            watchYoutube: "यूट्यूब ऐप पर देखें",
+            facebookTitle: "फेसबुक लाइव",
+            facebookDesc: "सामुदायिक कार्यक्रम और अपडेट",
+            facebookSub: "लाइव इवेंट कवरेज और सामुदायिक बातचीत के लिए हमारे फेसबुक पेज को फॉलो करें।",
+            watchFacebook: "फेसबुक ऐप पर देखें",
+            streamPlaceholder: "स्ट्रीम यहाँ लोड होगी"
+        },
+        seniorCitizenPage: {
+            title: "दिव्यांग और वरिष्ठ नागरिक दर्शन",
+            subtitle: "हम सभी भक्तों के लिए सुगम दर्शन सुनिश्चित करने के लिए प्रतिबद्ध हैं।",
+            wheelchairTitle: "व्हीलचेयर सुविधा",
+            wheelchairDesc: "मुख्य द्वार पर रैंप और व्हीलचेयर सहायता उपलब्ध है। हमारे स्वयंसेवक आपकी सहायता के लिए सदैव तत्पर हैं।",
+            priorityTitle: "प्राथमिकता कतार",
+            priorityDesc: "वरिष्ठ नागरिकों (60+) और दिव्यांग व्यक्तियों के लिए प्रतीक्षा समय कम करने के लिए एक अलग, तेज कतार बनाए रखी जाती है।",
+            timingsTitle: "समय और दिशानिर्देश",
+            timeInfo: "मंदिर खुलने के समय (सुबह 6:00 बजे - रात 9:00 बजे) के दौरान प्रतिदिन उपलब्ध।",
+            idProof: "कृपया आयु सत्यापन के लिए वैध आईडी प्रमाण (आधार/वोटर आईडी) साथ रखें।",
+            attendant: "दिव्यांग भक्तों के साथ एक सहायक की अनुमति है।",
+            assistance: "अपनी यात्रा से पहले किसी भी विशेष सहायता के लिए, कृपया हमसे संपर्क करें:",
+            callHelpline: "हेल्पलाइन पर कॉल करें"
+        },
+        specialEntryPage: {
+            title: "शीघ्र दर्शन / विशेष प्रवेश",
+            subtitle: "भीड़ से बचें और माँ के विशेष दर्शन का लाभ उठाएं।",
+            sheeghraTitle: "शीघ्र दर्शन",
+            expressEntry: "त्वरित प्रवेश",
+            person: "/ व्यक्ति",
+            sheeghraFeature1: "समर्पित कतार लाइन",
+            sheeghraFeature2: "देवता के निकट दर्शन",
+            sheeghraFeature3: "लड्डू प्रसादम शामिल",
+            bookingComingSoon: "बुकिंग जल्द आ रही है",
+            visheshTitle: "विशेष पूजा",
+            specialRituals: "विशेष अनुष्ठान",
+            mostPopular: "सबसे लोकप्रिय",
+            family: "/ परिवार",
+            visheshFeature1: "आपके नाम पर संकल्प पूजा",
+            visheshFeature2: "4 सदस्यों के लिए प्राथमिकता दर्शन",
+            visheshFeature3: "विशेष प्रसादम पैक",
+            onlineBookingTitle: "ऑनलाइन बुकिंग सुविधा",
+            onlineBookingDesc: "ऑनलाइन टिकट बुकिंग सुविधा वर्तमान में विकास के अधीन है। विशेष दर्शन के लिए टिकट सीधे पूर्वी द्वार के पास मंदिर काउंटर से खरीदे जा सकते हैं।"
         }
     }
 };

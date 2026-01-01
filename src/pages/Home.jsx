@@ -18,7 +18,7 @@ const Home = () => {
                         <div className="w-24 h-1 bg-gradient-to-r from-transparent via-secondary to-transparent mx-auto mb-6"></div>
                         <p className="text-[#787878] text-lg font-medium">{t('home', 'eventsDesc')}</p>
                     </div>
-                    <EventsList />
+                    <EventsList disableModal={true} />
                 </div>
             </section>
         </>

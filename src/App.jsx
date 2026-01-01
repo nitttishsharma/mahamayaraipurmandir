@@ -9,6 +9,9 @@ import Donation from './pages/Donation';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import Events from './pages/Events';
+import OnlineSevas from './pages/OnlineSevas';
+import SeniorCitizenDarshan from './pages/SeniorCitizenDarshan';
+import SpecialEntryDarshan from './pages/SpecialEntryDarshan';
 
 // ScrollToTop component to reset scroll position on route change
 function ScrollToTop() {
@@ -29,6 +32,7 @@ import EventsManager from './pages/admin/EventsManager';
 import GalleryManager from './pages/admin/GalleryManager';
 import CommitteeManager from './pages/admin/CommitteeManager';
 import DonationsManager from './pages/admin/DonationsManager';
+import SettingsManager from './pages/admin/SettingsManager';
 
 function App() {
   return (
@@ -52,6 +56,9 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/donation" element={<Donation />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/online-sevas" element={<OnlineSevas />} />
+          <Route path="/senior-citizen-darshan" element={<SeniorCitizenDarshan />} />
+          <Route path="/special-entry-darshan" element={<SpecialEntryDarshan />} />
         </Route>
 
         {/* Admin Routes */}
@@ -62,6 +69,7 @@ function App() {
           <Route path="gallery" element={<GalleryManager />} />
           <Route path="committee" element={<CommitteeManager />} />
           <Route path="donations" element={<DonationsManager />} />
+          <Route path="settings" element={<SettingsManager />} />
         </Route>
       </Routes>
     </Router>
