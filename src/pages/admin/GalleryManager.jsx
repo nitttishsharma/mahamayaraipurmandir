@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import ImageUploader from '../../components/admin/ImageUploader';
 import { Plus, Trash2, Image as ImageIcon } from 'lucide-react';
+import { deleteImageFromStorage } from '../../utils/storageHelpers';
 
 const GalleryManager = () => {
     const [images, setImages] = useState([]);
@@ -76,6 +77,21 @@ const GalleryManager = () => {
         if (!window.confirm('Are you sure you want to delete this image?')) return;
 
         try {
+            // 1. Get the image URL first
+            const { data: imageToDelete, error: fetchError } = await supabase
+                .from('gallery')
+                .select('image_url')
+                .eq('id', id)
+                .single();
+
+            if (fetchError) throw fetchError;
+
+            // 2. Delete from Storage
+            if (imageToDelete?.image_url) {
+                await deleteImageFromStorage(imageToDelete.image_url);
+            }
+
+            // 3. Delete Record
             const { error } = await supabase
                 .from('gallery')
                 .delete()

@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import ImageUploader from '../../components/admin/ImageUploader';
 import { Plus, Trash2, User } from 'lucide-react';
+import { deleteImageFromStorage } from '../../utils/storageHelpers';
+import { useToast } from '../../context/ToastContext';
 
 const CommitteeManager = () => {
     const [members, setMembers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
+    const toast = useToast();
 
     // Form State
     const [formData, setFormData] = useState({
@@ -34,6 +37,7 @@ const CommitteeManager = () => {
             setMembers(data || []);
         } catch (error) {
             console.error('Error fetching members:', error);
+            toast.error('Error fetching members');
         } finally {
             setLoading(false);
         }
@@ -60,21 +64,39 @@ const CommitteeManager = () => {
             setFormData({ name_en: '', name_hi: '', role_en: '', role_hi: '', image_url: '', member_order: 0 });
             setIsEditing(false);
             fetchMembers();
-            alert('Member added successfully!');
+            toast.success('Member added successfully!');
         } catch (error) {
-            alert('Error adding member: ' + error.message);
+            toast.error('Error adding member: ' + error.message);
         }
     };
 
-    const handleDelete = async (id) => {
-        if (!window.confirm('Are you sure?')) return;
-        try {
-            const { error } = await supabase.from('committee').delete().eq('id', id);
-            if (error) throw error;
-            fetchMembers();
-        } catch (error) {
-            alert('Error deleting member');
-        }
+    const handleDelete = (id) => {
+        toast.confirm('Are you sure?', async () => {
+            try {
+                // 1. Get member data (for image)
+                const { data: memberToDelete, error: fetchError } = await supabase
+                    .from('committee')
+                    .select('image_url')
+                    .eq('id', id)
+                    .single();
+
+                if (fetchError) throw fetchError;
+
+                // 2. Delete Image
+                if (memberToDelete?.image_url) {
+                    await deleteImageFromStorage(memberToDelete.image_url);
+                }
+
+                // 3. Delete Record
+                const { error } = await supabase.from('committee').delete().eq('id', id);
+                if (error) throw error;
+                fetchMembers();
+                toast.success('Member deleted successfully');
+            } catch (error) {
+                console.error(error);
+                toast.error('Error deleting member');
+            }
+        });
     };
 
     return (

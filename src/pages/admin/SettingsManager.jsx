@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../supabaseClient';
-import { Save, Link as LinkIcon, AlertCircle, CheckCircle } from 'lucide-react';
+import { Save, Link as LinkIcon, AlertCircle, CheckCircle, Image as ImageIcon, MessageSquare } from 'lucide-react';
+import ImageUploader from '../../components/admin/ImageUploader';
+import { deleteImageFromStorage } from '../../utils/storageHelpers';
 
 const SettingsManager = () => {
     const [settings, setSettings] = useState({
         youtube_live_url: '',
-        facebook_live_url: ''
+        facebook_live_url: '',
+        popup_enabled: 'false',
+        popup_image: '',
+        popup_link: ''
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -49,35 +54,36 @@ const SettingsManager = () => {
         }));
     };
 
+    const handleImageUpload = async (url) => {
+        // If there was an existing image and we are replacing it (url is different), delete the old one
+        if (settings.popup_image && settings.popup_image !== url) {
+            await deleteImageFromStorage(settings.popup_image);
+        }
+        setSettings(prev => ({ ...prev, popup_image: url }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSaving(true);
         setMessage({ type: '', text: '' });
 
         try {
-            // Upsert YouTube URL
-            const { error: ytError } = await supabase
-                .from('site_settings')
-                .upsert({
-                    key: 'youtube_live_url',
-                    value: settings.youtube_live_url,
-                    description: 'URL for YouTube Live Stream'
-                }, { onConflict: 'key' });
+            const updates = [
+                { key: 'youtube_live_url', value: settings.youtube_live_url, description: 'URL for YouTube Live Stream' },
+                { key: 'facebook_live_url', value: settings.facebook_live_url, description: 'URL for Facebook Live Stream' },
+                { key: 'popup_enabled', value: settings.popup_enabled, description: 'Enable/Disable Welcome Popup' },
+                { key: 'popup_image', value: settings.popup_image, description: 'Image URL for Welcome Popup' },
+                { key: 'popup_link', value: settings.popup_link, description: 'Optional link for Welcome Popup' }
+            ];
 
-            if (ytError) throw ytError;
+            for (const update of updates) {
+                const { error } = await supabase
+                    .from('site_settings')
+                    .upsert(update, { onConflict: 'key' });
+                if (error) throw error;
+            }
 
-            // Upsert Facebook URL
-            const { error: fbError } = await supabase
-                .from('site_settings')
-                .upsert({
-                    key: 'facebook_live_url',
-                    value: settings.facebook_live_url,
-                    description: 'URL for Facebook Live Stream'
-                }, { onConflict: 'key' });
-
-            if (fbError) throw fbError;
-
-            setMessage({ type: 'success', text: 'Live stream settings updated successfully!' });
+            setMessage({ type: 'success', text: 'Settings updated successfully!' });
         } catch (error) {
             console.error('Error saving settings:', error);
             setMessage({ type: 'error', text: 'Failed to save settings. Please try again.' });
@@ -92,62 +98,115 @@ const SettingsManager = () => {
                 <h1 className="text-3xl font-bold text-gray-800">Site Settings</h1>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 max-w-2xl">
-                <h2 className="text-xl font-semibold mb-6 flex items-center text-gray-700">
-                    <LinkIcon className="mr-2" size={24} />
-                    Live Darshan Links
-                </h2>
+            <div className="max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8">
 
+                {/* Live Darshan Section */}
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-fit">
+                    <h2 className="text-xl font-semibold mb-6 flex items-center text-gray-700">
+                        <LinkIcon className="mr-2" size={24} />
+                        Live Darshan Links
+                    </h2>
+
+                    {loading ? (
+                        <div className="text-center py-10 text-gray-500">Loading settings...</div>
+                    ) : (
+                        <div className="space-y-6">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">YouTube Live Embed URL</label>
+                                <input
+                                    type="text"
+                                    name="youtube_live_url"
+                                    value={settings.youtube_live_url}
+                                    onChange={handleChange}
+                                    placeholder="https://www.youtube.com/embed/..."
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                                />
+                                <p className="text-xs text-gray-500 mt-1">Paste the full embed URL.</p>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Facebook Live Video URL</label>
+                                <input
+                                    type="text"
+                                    name="facebook_live_url"
+                                    value={settings.facebook_live_url}
+                                    onChange={handleChange}
+                                    placeholder="https://www.facebook.com/plugins/video.php?..."
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                                />
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Welcome Popup Section */}
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-fit">
+                    <h2 className="text-xl font-semibold mb-6 flex items-center text-gray-700">
+                        <MessageSquare className="mr-2" size={24} />
+                        Welcome Popup Settings
+                    </h2>
+
+                    {loading ? (
+                        <div className="text-center py-10 text-gray-500">Loading settings...</div>
+                    ) : (
+                        <div className="space-y-6">
+                            <div>
+                                <label className="flex items-center space-x-3">
+                                    <input
+                                        type="checkbox"
+                                        name="popup_enabled"
+                                        checked={settings.popup_enabled === 'true'}
+                                        onChange={(e) => setSettings(prev => ({ ...prev, popup_enabled: e.target.checked ? 'true' : 'false' }))}
+                                        className="h-5 w-5 text-primary focus:ring-primary border-gray-300 rounded"
+                                    />
+                                    <span className="text-gray-700 font-medium">Enable Welcome Popup</span>
+                                </label>
+                                <p className="text-xs text-gray-500 mt-1 ml-8">Shows a popup when users visit the home page.</p>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Popup Image</label>
+                                <ImageUploader
+                                    onUpload={handleImageUpload}
+                                    currentImage={settings.popup_image}
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Popup Link (Optional)</label>
+                                <input
+                                    type="text"
+                                    name="popup_link"
+                                    value={settings.popup_link}
+                                    onChange={handleChange}
+                                    placeholder="https://..."
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                                />
+                                <p className="text-xs text-gray-500 mt-1">If set, clicking the popup image will redirect here.</p>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+            </div>
+
+            <div className="mt-8">
                 {message.text && (
-                    <div className={`p-4 rounded-lg mb-6 flex items-center ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                    <div className={`p-4 rounded-lg mb-6 flex items-center max-w-4xl ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
                         {message.type === 'success' ? <CheckCircle className="mr-2" size={20} /> : <AlertCircle className="mr-2" size={20} />}
                         {message.text}
                     </div>
                 )}
 
-                {loading ? (
-                    <div className="text-center py-10 text-gray-500">Loading settings...</div>
-                ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">YouTube Live Embed URL</label>
-                            <input
-                                type="text"
-                                name="youtube_live_url"
-                                value={settings.youtube_live_url}
-                                onChange={handleChange}
-                                placeholder="https://www.youtube.com/embed/..."
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-                            />
-                            <p className="text-xs text-gray-500 mt-1">Paste the full embed URL (e.g. from the 'Embed' tab on YouTube).</p>
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Facebook Live Video URL</label>
-                            <input
-                                type="text"
-                                name="facebook_live_url"
-                                value={settings.facebook_live_url}
-                                onChange={handleChange}
-                                placeholder="https://www.facebook.com/plugins/video.php?..."
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-                            />
-                            <p className="text-xs text-gray-500 mt-1">Paste the Facebook video embed URL.</p>
-                        </div>
-
-                        <div className="pt-4">
-                            <button
-                                type="submit"
-                                disabled={saving}
-                                className={`flex items-center justify-center w-full px-6 py-3 rounded-lg text-white font-medium transition-all ${saving ? 'bg-gray-400 cursor-not-allowed' : 'bg-primary hover:bg-red-800 shadow-md hover:shadow-lg'
-                                    }`}
-                            >
-                                <Save className="mr-2" size={20} />
-                                {saving ? 'Saving Changes...' : 'Save Settings'}
-                            </button>
-                        </div>
-                    </form>
-                )}
+                <button
+                    onClick={handleSubmit}
+                    disabled={saving}
+                    className={`flex items-center justify-center w-full max-w-xs px-6 py-3 rounded-lg text-white font-medium transition-all ${saving ? 'bg-gray-400 cursor-not-allowed' : 'bg-primary hover:bg-red-800 shadow-md hover:shadow-lg'
+                        }`}
+                >
+                    <Save className="mr-2" size={20} />
+                    {saving ? 'Saving Changes...' : 'Save All Settings'}
+                </button>
             </div>
         </div>
     );

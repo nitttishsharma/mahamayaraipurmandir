@@ -2,12 +2,14 @@ import Hero from '../components/Hero';
 import Heritage from '../components/Heritage';
 import GalleryPreview from '../components/GalleryPreview';
 import EventsList from '../components/EventsList';
+import WelcomePopup from '../components/WelcomePopup';
 import { useLanguage } from '../context/LanguageContext';
 
 const Home = () => {
     const { t } = useLanguage();
     return (
         <>
+            <WelcomePopup />
             <Hero />
             <Heritage />
             <GalleryPreview />

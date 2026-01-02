@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { supabase } from '../supabaseClient';
 import { useLanguage } from '../context/LanguageContext';
-import { Loader } from 'lucide-react';
+import { Loader, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Gallery = () => {
     const { t, language } = useLanguage();
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const modalRef = useRef(null);
 
     useEffect(() => {
         fetchImages();
@@ -25,6 +28,47 @@ const Gallery = () => {
             console.error('Error fetching gallery:', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const openLightbox = (index) => {
+        setCurrentImageIndex(index);
+        setLightboxOpen(true);
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    };
+
+    const closeLightbox = () => {
+        setLightboxOpen(false);
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    };
+
+    const nextImage = (e) => {
+        e.stopPropagation();
+        setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    };
+
+    const prevImage = (e) => {
+        e.stopPropagation();
+        setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+    };
+
+    // Keyboard navigation
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (!lightboxOpen) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') setCurrentImageIndex((prev) => (prev + 1) % images.length);
+            if (e.key === 'ArrowLeft') setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [lightboxOpen, images.length]);
+
+    // Handle clicking outside the image to close
+    const handleBackdropClick = (e) => {
+        if (modalRef.current && !modalRef.current.contains(e.target)) {
+            closeLightbox();
         }
     };
 
@@ -66,7 +110,11 @@ const Gallery = () => {
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {images.map((image, index) => (
-                                <div key={image.id} className={`relative group overflow-hidden rounded-xl shadow-lg border border-amber-100 ${index % 3 === 0 ? 'md:row-span-2 h-96' : 'h-64'}`}>
+                                <div
+                                    key={image.id}
+                                    className={`relative group overflow-hidden rounded-xl shadow-lg border border-amber-100 cursor-pointer ${index % 3 === 0 ? 'md:row-span-2 h-96' : 'h-64'}`}
+                                    onClick={() => openLightbox(index)}
+                                >
                                     <img
                                         src={image.image_url}
                                         alt={language === 'hi' ? image.title_hi : image.title_en}
@@ -88,6 +136,60 @@ const Gallery = () => {
                     )}
                 </div>
             </section>
+
+            {/* Lightbox Modal */}
+            {lightboxOpen && images.length > 0 && (
+                <div
+                    className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
+                    onClick={handleBackdropClick}
+                >
+                    <button
+                        onClick={closeLightbox}
+                        className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2"
+                        aria-label="Close"
+                    >
+                        <X size={32} />
+                    </button>
+
+                    <button
+                        onClick={prevImage}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 bg-black/20 hover:bg-black/40 rounded-full"
+                        aria-label="Previous"
+                    >
+                        <ChevronLeft size={40} />
+                    </button>
+
+                    <button
+                        onClick={nextImage}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 bg-black/20 hover:bg-black/40 rounded-full"
+                        aria-label="Next"
+                    >
+                        <ChevronRight size={40} />
+                    </button>
+
+                    <div
+                        ref={modalRef}
+                        className="max-h-[85vh] max-w-5xl w-full flex flex-col items-center"
+                    >
+                        <img
+                            src={images[currentImageIndex].image_url}
+                            alt={language === 'hi' ? images[currentImageIndex].title_hi : images[currentImageIndex].title_en}
+                            className="max-h-[75vh] w-auto max-w-full object-contain rounded-md shadow-2xl"
+                        />
+                        <div className="mt-4 text-center">
+                            <h3 className="text-white text-xl font-serif">
+                                {language === 'hi' ? images[currentImageIndex].title_hi : images[currentImageIndex].title_en}
+                            </h3>
+                            <p className="text-accent/80 text-sm mt-1">
+                                {language === 'hi' ? images[currentImageIndex].category_hi : images[currentImageIndex].category_en}
+                            </p>
+                        </div>
+                        <div className="absolute bottom-6 text-white/40 text-xs tracking-widest">
+                            {currentImageIndex + 1} / {images.length}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

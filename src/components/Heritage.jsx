@@ -51,7 +51,7 @@ const Heritage = () => {
 
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
                             <img
-                                src="../public/images/home/Abouthome.jpeg"
+                                src="/images/home/Abouthome.jpeg"
                                 alt="Temple Deity"
                                 className="w-full h-[600px] object-cover object-top transform transition duration-700 group-hover:scale-105"
                             />

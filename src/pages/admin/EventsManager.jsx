@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import ImageUploader from '../../components/admin/ImageUploader';
 import { Plus, Trash2, Calendar, Image as ImageIcon } from 'lucide-react';
+import { deleteImageFromStorage } from '../../utils/storageHelpers';
+import { useToast } from '../../context/ToastContext';
 
 const EventsManager = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
+    const toast = useToast();
 
     // Form State
     const [formData, setFormData] = useState({
@@ -34,6 +37,7 @@ const EventsManager = () => {
             setEvents(data || []);
         } catch (error) {
             console.error('Error fetching events:', error);
+            toast.error('Failed to fetch events');
         } finally {
             setLoading(false);
         }
@@ -68,28 +72,44 @@ const EventsManager = () => {
             });
             setIsEditing(false);
             fetchEvents();
-            alert('Event added successfully!');
+            toast.success('Event added successfully!');
         } catch (error) {
             console.error('Error adding event:', error);
-            alert('Error adding event: ' + error.message);
+            toast.error('Error adding event: ' + error.message);
         }
     };
 
-    const handleDelete = async (id) => {
-        if (!window.confirm('Are you sure you want to delete this event?')) return;
+    const handleDelete = (id) => {
+        toast.confirm('Are you sure you want to delete this event?', async () => {
+            try {
+                // 1. Get the event data to find the image URL
+                const { data: eventToDelete, error: fetchError } = await supabase
+                    .from('events')
+                    .select('image_url')
+                    .eq('id', id)
+                    .single();
 
-        try {
-            const { error } = await supabase
-                .from('events')
-                .delete()
-                .eq('id', id);
+                if (fetchError) throw fetchError;
 
-            if (error) throw error;
-            fetchEvents();
-        } catch (error) {
-            console.error('Error deleting event:', error);
-            alert('Error deleting event');
-        }
+                // 2. Delete the image from storage if it exists
+                if (eventToDelete?.image_url) {
+                    await deleteImageFromStorage(eventToDelete.image_url);
+                }
+
+                // 3. Delete the record
+                const { error } = await supabase
+                    .from('events')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+                fetchEvents();
+                toast.success('Event deleted successfully');
+            } catch (error) {
+                console.error('Error deleting event:', error);
+                toast.error('Error deleting event');
+            }
+        });
     };
 
     return (

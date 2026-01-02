@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import ImageUploader from '../../components/admin/ImageUploader';
 import { Plus, Trash2, Heart } from 'lucide-react';
+import { deleteImageFromStorage } from '../../utils/storageHelpers';
+import { useToast } from '../../context/ToastContext';
 
 const DonationsManager = () => {
     const [campaigns, setCampaigns] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
+    const toast = useToast();
 
     // Form State
     const [formData, setFormData] = useState({
@@ -32,6 +35,7 @@ const DonationsManager = () => {
             setCampaigns(data || []);
         } catch (error) {
             console.error('Error fetching campaigns:', error);
+            toast.error('Error fetching campaigns');
         } finally {
             setLoading(false);
         }
@@ -54,21 +58,39 @@ const DonationsManager = () => {
             setFormData({ title_en: '', title_hi: '', description_en: '', description_hi: '', goal: '', raised: '0', days_left: '', image_url: '' });
             setIsEditing(false);
             fetchCampaigns();
-            alert('Campaign added successfully!');
+            toast.success('Campaign added successfully!');
         } catch (error) {
-            alert('Error adding campaign: ' + error.message);
+            toast.error('Error adding campaign: ' + error.message);
         }
     };
 
-    const handleDelete = async (id) => {
-        if (!window.confirm('Are you sure?')) return;
-        try {
-            const { error } = await supabase.from('donations').delete().eq('id', id);
-            if (error) throw error;
-            fetchCampaigns();
-        } catch (error) {
-            alert('Error deleting campaign');
-        }
+    const handleDelete = (id) => {
+        toast.confirm('Are you sure?', async () => {
+            try {
+                // 1. Get campaign image
+                const { data: campaignToDelete, error: fetchError } = await supabase
+                    .from('donations')
+                    .select('image_url')
+                    .eq('id', id)
+                    .single();
+
+                if (fetchError) throw fetchError;
+
+                // 2. Delete Image
+                if (campaignToDelete?.image_url) {
+                    await deleteImageFromStorage(campaignToDelete.image_url);
+                }
+
+                // 3. Delete Record
+                const { error } = await supabase.from('donations').delete().eq('id', id);
+                if (error) throw error;
+                fetchCampaigns();
+                toast.success('Campaign deleted successfully');
+            } catch (error) {
+                console.error(error);
+                toast.error('Error deleting campaign');
+            }
+        });
     };
 
     return (
