@@ -15,7 +15,7 @@ const Footer = () => {
                     <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 max-w-lg">
                         <div className="flex flex-col md:flex-row items-center gap-4">
                             <img
-                                src="/images/common/logo.jpg"
+                                src="/images/common/Logo-1-1.png"
                                 alt="Shree Mahamaya Devi Temple"
                                 className="w-24 h-24 rounded-full border-2 border-[#C8A15C] shadow-lg"
                             />
@@ -37,19 +37,19 @@ const Footer = () => {
 
                         {/* Social Icons */}
                         <div className="flex space-x-3 pt-2">
-                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="bg-[#3b5998] p-2.5 rounded text-white hover:brightness-110 transition-all">
+                            <a href="https://www.facebook.com/shrimahamayadevimndirraipur" target="_blank" rel="noopener noreferrer" className="bg-[#3b5998] p-2.5 rounded text-white hover:brightness-110 transition-all">
                                 <Facebook size={24} fill="white" />
                             </a>
-                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] p-2.5 rounded text-white hover:brightness-110 transition-all">
+                            <a href="https://www.instagram.com/shrimahamayadevimndirraipur" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] p-2.5 rounded text-white hover:brightness-110 transition-all">
                                 <Instagram size={24} />
                             </a>
-                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="bg-black p-2.5 rounded text-white hover:brightness-110 transition-all">
+                            <a href="https://x.com/mahamaya_rpr" target="_blank" rel="noopener noreferrer" className="bg-black p-2.5 rounded text-white hover:brightness-110 transition-all">
                                 <Twitter size={24} fill="white" />
                             </a>
-                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="bg-[#FF0000] p-2.5 rounded text-white hover:brightness-110 transition-all">
+                            <a href="https://www.youtube.com/@mahamayamaaraipur" target="_blank" rel="noopener noreferrer" className="bg-[#FF0000] p-2.5 rounded text-white hover:brightness-110 transition-all">
                                 <Youtube size={24} fill="white" />
                             </a>
-                            <a href={`https://wa.me/${CONTACT_INFO.phone.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="bg-[#25D366] p-2.5 rounded text-white hover:brightness-110 transition-all">
+                            <a href={"https://wa.me/917389664779"} target="_blank" rel="noopener noreferrer" className="bg-[#25D366] p-2.5 rounded text-white hover:brightness-110 transition-all">
                                 <MessageCircle size={24} fill="white" />
                             </a>
                         </div>

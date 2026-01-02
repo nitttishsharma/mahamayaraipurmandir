@@ -4,6 +4,7 @@ import GalleryPreview from '../components/GalleryPreview';
 import EventsList from '../components/EventsList';
 import WelcomePopup from '../components/WelcomePopup';
 import { useLanguage } from '../context/LanguageContext';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const { t } = useLanguage();
@@ -21,6 +22,11 @@ const Home = () => {
                         <p className="text-[#787878] text-lg font-medium">{t('home', 'eventsDesc')}</p>
                     </div>
                     <EventsList disableModal={true} />
+                    <div className="text-center mt-12">
+                        <Link to="/events" className="inline-block px-8 py-3 border-2 border-secondary text-secondary font-semibold rounded-full hover:bg-secondary hover:text-white transition-all duration-300">
+                            {t('eventsPreview', 'viewAll')}
+                        </Link>
+                    </div>
                 </div>
             </section>
         </>

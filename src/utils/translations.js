@@ -36,6 +36,11 @@ export const translations = {
             description: "Glimpses of devotion, rituals, and the architectural marvels of our temple",
             viewAll: "View All Gallery"
         },
+        eventsPreview: {
+            title: "Upcoming Events",
+            description: "Join us in celebrating sacred festivals and spiritual gatherings",
+            viewAll: "View All Events"
+        },
         about: {
             title: "About Us",
             subtitle: "Discover the divine history and spiritual significance of our ancient temple",
@@ -198,6 +203,11 @@ export const translations = {
             title: "पवित्र क्षण",
             description: "भक्ति, अनुष्ठानों और हमारे मंदिर के वास्तुशिल्प चमत्कारों की झलकियां",
             viewAll: "पूरी गैलरी देखें"
+        },
+        eventsPreview: {
+            title: "आगामी कार्यक्रम",
+            description: "आस्था, संस्कृति और सामुदायिक समारोहों के उत्सव में हमारे साथ शामिल हों",
+            viewAll: "पूरी कार्यक्रम देखें"
         },
         about: {
             title: "हमारे बारे में",

@@ -3,8 +3,11 @@ import { MapPin, Phone, Mail, Send } from 'lucide-react';
 import { CONTACT_INFO } from '../data/contactInfo';
 import { useLanguage } from '../context/LanguageContext';
 
+
+
 const Contact = () => {
     const { t, language } = useLanguage();
+    const [status, setStatus] = useState(null);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -15,10 +18,29 @@ const Contact = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // Handle form submission logic here
-        console.log('Form submitted:', formData);
+
+        const form = e.target;
+
+        const res = await fetch("https://formspree.io/f/mdakzoow", {
+            method: "POST",
+            body: new FormData(form),
+            headers: {
+                Accept: "application/json",
+            },
+        });
+
+        if (res.ok) {
+            setStatus("success");
+            form.reset();
+            setFormData({ name: "", email: "", message: "" });
+
+            setTimeout(() => setStatus(null), 4000);
+        } else {
+            setStatus("error");
+        }
     };
 
     return (
@@ -119,6 +141,7 @@ const Contact = () => {
                                     required
                                 />
                             </div>
+                            <input type="hidden" name="_subject" value="New Feedback from Mahamaya Temple Website" />
                             <div>
                                 <label htmlFor="message" className="sr-only">Message</label>
                                 <textarea
@@ -139,6 +162,16 @@ const Contact = () => {
                                 <span>{t('contactPage', 'formSubmit')}</span>
                                 <Send className="w-5 h-5" />
                             </button>
+                            {status === "success" && (
+                                <p className="text-green-500 mt-4 text-center">
+                                    {t('contactPage', 'Thank you 🙏 Your feedback has been sent')}
+                                </p>
+                            )}
+                            {status === "error" && (
+                                <p className="text-red-500 mt-4 text-center">
+                                    {t('contactPage', 'Something went wrong. Please try again.')}
+                                </p>
+                            )}
                         </form>
 
                         <div className="mt-8 bg-accent/20 p-4 rounded-md border-l-4 border-accent">

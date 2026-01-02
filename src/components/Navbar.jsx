@@ -35,11 +35,17 @@ const Navbar = () => {
                     <div className="flex items-center space-x-4">
                         <Link to="/" className="flex items-center space-x-4">
                             {/* Temple Logo */}
-                            <img
+                            {/* <img
                                 src="/images/common/logo.jpg"
                                 alt="Shree Mahamaya Devi Temple"
                                 className="w-16 h-16 rounded-full object-cover border-2 border-accent shadow-[0_0_15px_rgba(252,224,67,0.3)]"
+                            /> */}
+                            <img
+                                src="/images/common/Logo-1-1.png"
+                                alt="Shree Mahamaya Devi Temple"
+                                className="max-h-14 w-auto object-contain w-16 h-16 rounded-full"
                             />
+
                             <div className="flex flex-col">
                                 <span className="font-serif text-xl tracking-wider uppercase text-white drop-shadow-md leading-none">
                                     Shree Mahamaya
