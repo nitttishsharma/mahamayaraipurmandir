@@ -12,6 +12,7 @@ import Events from './pages/Events';
 import OnlineSevas from './pages/OnlineSevas';
 import SeniorCitizenDarshan from './pages/SeniorCitizenDarshan';
 import SpecialEntryDarshan from './pages/SpecialEntryDarshan';
+import VersionChecker from './components/VersionChecker';
 
 // ScrollToTop component to reset scroll position on route change
 function ScrollToTop() {
@@ -74,6 +75,7 @@ function App() {
           <Route path="settings" element={<SettingsManager />} />
         </Route>
       </Routes>
+      <VersionChecker />
     </Router>
   );
 }

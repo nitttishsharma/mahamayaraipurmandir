@@ -1,0 +1,24 @@
+{
+    "version": "1.0.0",
+    "releaseDate": "2026-01-02",
+    "changelog": [
+        {
+            "version": "1.0.0",
+            "date": "2026-01-02",
+            "changes": [
+                "Initial production release",
+                "Complete temple website with admin panel",
+                "Event management system",
+                "Gallery with lightbox",
+                "Committee member profiles",
+                "Donation campaigns with lead capture",
+                "Payment screenshot upload",
+                "Welcome popup feature",
+                "Online services integration",
+                "Multi-language support (English/Hindi)",
+                "Toast notification system",
+                "Responsive design for all devices"
+            ]
+        }
+    ]
+}
