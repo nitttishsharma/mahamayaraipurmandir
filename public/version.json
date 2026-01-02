@@ -1,9 +1,9 @@
 {
-    "version": "1.2.0",
+    "version": "1.3.0",
     "releaseDate": "2026-01-02",
     "changelog": [
         {
-            "version": "1.2.0",
+            "version": "1.3.0",
             "date": "2026-01-02",
             "changes": [
                 "Initial production release",
@@ -20,7 +20,8 @@
                 "Responsive design for all devices",
                 "Map intergartion",
                 "Working feedback form",
-                "Events page view all"
+                "Events page view all",
+                "Edit functionality for donations and committee"
             ]
         }
     ]
