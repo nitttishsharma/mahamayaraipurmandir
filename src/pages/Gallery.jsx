@@ -74,24 +74,20 @@ const Gallery = () => {
 
     return (
         <div className="bg-cream min-h-screen">
-            {/* Hero / Header Section */}
-            <section className="relative h-[50vh] min-h-[400px] overflow-hidden">
-                <div className="absolute inset-0">
-                    <img
-                        src="https://images.unsplash.com/photo-1547906733-87a177a52f99?q=80&w=2070"
-                        alt="Temple Gallery Hero"
-                        className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-primary/30"></div>
-                </div>
-                <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4 pt-20">
-                    <h1 className="text-5xl md:text-7xl font-serif text-white mb-6 drop-shadow-lg">{t('galleryPage', 'title')}</h1>
-                    <div className="h-1 w-32 bg-accent mb-8"></div>
-                    <p className="text-xl md:text-2xl text-white/90 font-light max-w-3xl drop-shadow-md">
+            {/* Hero Section*/}
+
+            <section className="relative h-[60vh] min-h-[650px] bg-cover bg-center" style={{ backgroundImage: "url('/images/home/Carole2.jpg')" }}>
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60"></div>
+                <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
+                    <h1 className="text-5xl md:text-6xl font-serif text-white mb-4">{t('galleryPage', 'title')}</h1>
+
+                    <p className="text-lg md:text-xl text-white/90 max-w-3xl">
                         {t('galleryPage', 'subtitle')}
                     </p>
                 </div>
             </section>
+
+
 
             {/* Gallery Grid Section */}
             <section className="py-20 px-4 bg-cream relative">
