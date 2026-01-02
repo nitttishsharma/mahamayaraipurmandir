@@ -104,17 +104,17 @@ const Gallery = () => {
                             <p>No images in the gallery yet.</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
                             {images.map((image, index) => (
                                 <div
                                     key={image.id}
-                                    className={`relative group overflow-hidden rounded-xl shadow-lg border border-amber-100 cursor-pointer ${index % 3 === 0 ? 'md:row-span-2 h-96' : 'h-64'}`}
+                                    className="relative group overflow-hidden rounded-xl shadow-lg border border-amber-100 cursor-pointer break-inside-avoid"
                                     onClick={() => openLightbox(index)}
                                 >
                                     <img
                                         src={image.image_url}
                                         alt={language === 'hi' ? image.title_hi : image.title_en}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                                         <div>

@@ -18,6 +18,7 @@ const GalleryPreview = () => {
             const { data, error } = await supabase
                 .from('gallery')
                 .select('*')
+                .eq('is_featured', true)
                 .order('created_at', { ascending: false })
                 .limit(4);
 

@@ -54,8 +54,8 @@ const Committee = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {members.map((member) => (
                             <div key={member.id} className="bg-white rounded-2xl p-6 shadow-lg border border-amber-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center group">
-                                <div className="w-32 h-32 mx-auto mb-4 rounded-full border-4 border-secondary/20 p-1 group-hover:border-secondary transition-colors duration-300">
-                                    <div className="w-full h-full rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+                                <div className="w-56 h-56 mx-auto mb-6 rounded-full border-4 border-secondary/20 p-1 group-hover:border-secondary transition-colors duration-300 shadow-inner">
+                                    <div className="w-full h-full rounded-full bg-gray-100 overflow-hidden flex items-center justify-center">
                                         {member.image_url ? (
                                             <img src={member.image_url} alt={language === 'hi' ? member.name_hi : member.name_en} className="w-full h-full object-cover" />
                                         ) : (
