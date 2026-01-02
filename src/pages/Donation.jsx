@@ -3,11 +3,16 @@ import { CreditCard, Smartphone, Heart, Copy, Loader, RefreshCw } from 'lucide-r
 import { bankDetails, upiDetails } from '../data/donations';
 import { useLanguage } from '../context/LanguageContext';
 import { supabase } from '../supabaseClient';
+import DonationForm from '../components/DonationForm';
+import PaymentScreenshotUpload from '../components/PaymentScreenshotUpload';
 
 const Donation = () => {
     const { t, language } = useLanguage();
     const [campaigns, setCampaigns] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showBankDetails, setShowBankDetails] = useState(false);
+    const [selectedCampaign, setSelectedCampaign] = useState(null);
+    const [leadId, setLeadId] = useState(null);
     const [stats, setStats] = useState({
         totalRaised: 0,
         goal: 0,
@@ -115,7 +120,14 @@ const Donation = () => {
                                         </div>
                                     </div>
 
-                                    <button className="w-full bg-secondary hover:bg-amber-600 text-white py-2 rounded-full font-bold transition-colors">
+                                    <button
+                                        onClick={() => {
+                                            setSelectedCampaign(campaign.id);
+                                            setShowBankDetails(false);
+                                            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                                        }}
+                                        className="w-full bg-secondary hover:bg-amber-600 text-white py-2 rounded-full font-bold transition-colors"
+                                    >
                                         {t('donationPage', 'donateBtn')}
                                     </button>
                                 </div>
@@ -125,69 +137,89 @@ const Donation = () => {
                 )}
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-                    {/* Other Donation Methods */}
+                    {/* Donation Form or Bank Details */}
                     <div>
-                        <h3 className="text-3xl font-serif text-primary mb-8 border-l-4 border-secondary pl-4">{t('donationPage', 'otherMethods')}</h3>
+                        {!showBankDetails ? (
+                            <DonationForm
+                                campaignId={selectedCampaign}
+                                onSuccess={(id) => {
+                                    setLeadId(id);
+                                    setShowBankDetails(true);
+                                }}
+                            />
+                        ) : (
+                            <>
+                                <h3 className="text-3xl font-serif text-primary mb-8 border-l-4 border-secondary pl-4">{t('donationPage', 'otherMethods')}</h3>
 
-                        <div className="space-y-6">
-                            {/* Bank Transfer */}
-                            <div className="bg-white p-6 rounded-xl shadow-md border border-amber-50">
-                                <div className="flex justify-between items-start mb-4">
-                                    <h4 className="font-serif text-lg text-primary flex items-center">
-                                        <CreditCard className="w-5 h-5 mr-2 text-secondary" />
-                                        {t('donationPage', 'bankTransfer')}
-                                    </h4>
-                                    <Copy className="w-4 h-4 text-gray-400 cursor-pointer hover:text-secondary" onClick={() => handleCopy(bankDetails.accountNumber)} />
-                                </div>
-                                <div className="space-y-3 text-sm">
-                                    <div className="flex justify-between border-b border-gray-100 pb-2">
-                                        <span className="text-gray-500">{t('donationPage', 'accountNumber')}</span>
-                                        <span className="font-mono text-darkText font-medium">{bankDetails.accountNumber}</span>
+                                <div className="space-y-6">
+                                    {/* Bank Transfer */}
+                                    <div className="bg-white p-6 rounded-xl shadow-md border border-amber-50">
+                                        <div className="flex justify-between items-start mb-4">
+                                            <h4 className="font-serif text-lg text-primary flex items-center">
+                                                <CreditCard className="w-5 h-5 mr-2 text-secondary" />
+                                                {t('donationPage', 'bankTransfer')}
+                                            </h4>
+                                            <Copy className="w-4 h-4 text-gray-400 cursor-pointer hover:text-secondary" onClick={() => handleCopy(bankDetails.accountNumber)} />
+                                        </div>
+                                        <div className="space-y-3 text-sm">
+                                            <div className="flex justify-between border-b border-gray-100 pb-2">
+                                                <span className="text-gray-500">{t('donationPage', 'accountNumber')}</span>
+                                                <span className="font-mono text-darkText font-medium">{bankDetails.accountNumber}</span>
+                                            </div>
+                                            <div className="flex justify-between border-b border-gray-100 pb-2">
+                                                <span className="text-gray-500">{t('donationPage', 'beneficiaryName')}</span>
+                                                <span className="text-darkText font-medium">{bankDetails.accountName}</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span className="text-gray-500">{t('donationPage', 'ifsc')}</span>
+                                                <span className="font-mono text-darkText font-medium">{bankDetails.ifsc}</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="flex justify-between border-b border-gray-100 pb-2">
-                                        <span className="text-gray-500">{t('donationPage', 'beneficiaryName')}</span>
-                                        <span className="text-darkText font-medium">{bankDetails.accountName}</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-500">{t('donationPage', 'ifsc')}</span>
-                                        <span className="font-mono text-darkText font-medium">{bankDetails.ifsc}</span>
-                                    </div>
-                                </div>
-                            </div>
 
-                            {/* UPI */}
-                            <div className="bg-white p-6 rounded-xl shadow-md border border-amber-50">
-                                <div className="flex justify-between items-start mb-4">
-                                    <h4 className="font-serif text-lg text-primary flex items-center">
-                                        <Smartphone className="w-5 h-5 mr-2 text-secondary" />
-                                        {t('donationPage', 'upi')}
-                                    </h4>
-                                    <Copy className="w-4 h-4 text-gray-400 cursor-pointer hover:text-secondary" onClick={() => handleCopy(upiDetails.mobile)} />
-                                </div>
-                                <div className="flex flex-col md:flex-row gap-6">
-                                    <div className="flex-1 space-y-3 text-sm">
-                                        <div className="flex justify-between border-b border-gray-100 pb-2">
-                                            <span className="text-gray-500">{t('donationPage', 'mobileNumber')}</span>
-                                            <span className="font-mono text-darkText font-medium">{upiDetails.mobile}</span>
+                                    {/* UPI */}
+                                    <div className="bg-white p-6 rounded-xl shadow-md border border-amber-50">
+                                        <div className="flex justify-between items-start mb-4">
+                                            <h4 className="font-serif text-lg text-primary flex items-center">
+                                                <Smartphone className="w-5 h-5 mr-2 text-secondary" />
+                                                {t('donationPage', 'upi')}
+                                            </h4>
+                                            <Copy className="w-4 h-4 text-gray-400 cursor-pointer hover:text-secondary" onClick={() => handleCopy(upiDetails.mobile)} />
                                         </div>
-                                        <div className="flex justify-between">
-                                            <span className="text-gray-500">{t('donationPage', 'upiId')}</span>
-                                            <span className="font-mono text-darkText font-medium">{upiDetails.upiId}</span>
+                                        <div className="flex flex-col md:flex-row gap-6">
+                                            <div className="flex-1 space-y-3 text-sm">
+                                                <div className="flex justify-between border-b border-gray-100 pb-2">
+                                                    <span className="text-gray-500">{t('donationPage', 'mobileNumber')}</span>
+                                                    <span className="font-mono text-darkText font-medium">{upiDetails.mobile}</span>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <span className="text-gray-500">{t('donationPage', 'upiId')}</span>
+                                                    <span className="font-mono text-darkText font-medium">{upiDetails.upiId}</span>
+                                                </div>
+                                            </div>
+                                            <div className="border border-gray-200 rounded-lg p-2 bg-white mx-auto md:mx-0">
+                                                {/* QR Code Placeholder */}
+                                                <div className="w-24 h-24 bg-gray-100 flex items-center justify-center">
+                                                    <img
+                                                        src={upiDetails.qrCode}
+                                                        alt="QR Code"
+                                                        className="w-full h-full"
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="border border-gray-200 rounded-lg p-2 bg-white mx-auto md:mx-0">
-                                        {/* QR Code Placeholder */}
-                                        <div className="w-24 h-24 bg-gray-100 flex items-center justify-center">
-                                            <img
-                                                src={upiDetails.qrCode}
-                                                alt="QR Code"
-                                                className="w-full h-full"
-                                            />
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
-                        </div>
+
+                                {/* Payment Screenshot Upload */}
+                                {leadId && (
+                                    <PaymentScreenshotUpload
+                                        leadId={leadId}
+                                        onUploadComplete={(url) => console.log('Screenshot uploaded:', url)}
+                                    />
+                                )}
+                            </>
+                        )}
                     </div>
 
                     {/* Progress / Total Donation - Dynamically Calculated */}
@@ -225,7 +257,14 @@ const Donation = () => {
                             </div>
                         </div>
 
-                        <button className="w-full bg-secondary hover:bg-amber-600 text-white py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center">
+                        <button
+                            onClick={() => {
+                                setSelectedCampaign(null);
+                                setShowBankDetails(false);
+                                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                            }}
+                            className="w-full bg-secondary hover:bg-amber-600 text-white py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center"
+                        >
                             {t('donationPage', 'donate')} <Heart className="ml-2 w-5 h-5 fill-white" />
                         </button>
                     </div>

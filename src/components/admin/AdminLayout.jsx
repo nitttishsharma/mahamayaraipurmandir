@@ -43,6 +43,7 @@ const AdminLayout = () => {
         { name: 'Gallery', path: '/admin/gallery', icon: <Image size={20} /> },
         { name: 'Committee', path: '/admin/committee', icon: <Users size={20} /> },
         { name: 'Donations', path: '/admin/donations', icon: <Heart size={20} /> },
+        { name: 'Donation Leads', path: '/admin/donation-leads', icon: <Heart size={20} /> },
         { name: 'Settings', path: '/admin/settings', icon: <Settings size={20} /> },
     ];
 

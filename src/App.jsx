@@ -32,6 +32,7 @@ import EventsManager from './pages/admin/EventsManager';
 import GalleryManager from './pages/admin/GalleryManager';
 import CommitteeManager from './pages/admin/CommitteeManager';
 import DonationsManager from './pages/admin/DonationsManager';
+import DonationLeadsManager from './pages/admin/DonationLeadsManager';
 import SettingsManager from './pages/admin/SettingsManager';
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
           <Route path="gallery" element={<GalleryManager />} />
           <Route path="committee" element={<CommitteeManager />} />
           <Route path="donations" element={<DonationsManager />} />
+          <Route path="donation-leads" element={<DonationLeadsManager />} />
           <Route path="settings" element={<SettingsManager />} />
         </Route>
       </Routes>
