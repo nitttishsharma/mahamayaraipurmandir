@@ -4,10 +4,10 @@ import { translations } from '../utils/translations';
 const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-    // Default to Hindi if stored, otherwise English
+    // Default to Hindi if no stored preference
     const [language, setLanguage] = useState(() => {
         const savedLang = localStorage.getItem('language');
-        return savedLang || 'en';
+        return savedLang || 'hi';
     });
 
     useEffect(() => {

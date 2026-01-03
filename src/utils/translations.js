@@ -17,7 +17,7 @@ export const translations = {
             title: "Shree Mahamaya Devi Temple",
             subtitle: "A Sacred Legacy Since 8th Century | Spiritual Harmony & Divine Blessings",
             makeDonation: "Make Donation",
-            learnMore: "Learn More"
+            learnMore: "Wish Oil Light Fee for Chaitra Navratri 2026"
         },
         heritage: { // Added based on Heritage.jsx content
             title: "Sacred Heritage",
@@ -185,7 +185,7 @@ export const translations = {
             title: "श्री महामाया देवी मंदिर",
             subtitle: "8वीं शताब्दी से एक पवित्र विरासत | आध्यात्मिक सद्भाव और दिव्य आशीर्वाद",
             makeDonation: "दान करें",
-            learnMore: "और जानें"
+            learnMore: "मनोकामना तेल ज्योति शुल्क चैत्र नवरात्रि 2026"
         },
         heritage: {
             title: "पवित्र विरासत",

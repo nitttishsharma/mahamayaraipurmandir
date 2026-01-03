@@ -1,9 +1,9 @@
 {
-    "version": "1.3.0",
+    "version": "1.4.0",
     "releaseDate": "2026-01-02",
     "changelog": [
         {
-            "version": "1.3.0",
+            "version": "1.4.0",
             "date": "2026-01-02",
             "changes": [
                 "Initial production release",
@@ -21,7 +21,8 @@
                 "Map intergartion",
                 "Working feedback form",
                 "Events page view all",
-                "Edit functionality for donations and committee"
+                "Edit functionality for donations and committee",
+                "Button for donation and learn more"
             ]
         }
     ]

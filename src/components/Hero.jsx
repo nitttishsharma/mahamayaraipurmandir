@@ -52,12 +52,26 @@ const Hero = () => {
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-8 animate-fade-in-up delay-200">
-                    <button className="bg-secondary hover:bg-amber-600 text-white px-12 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(217,119,6,0.6)] hover:shadow-[0_0_30px_rgba(217,119,6,0.8)] hover:-translate-y-1">
+                    {/* <button className="bg-secondary hover:bg-amber-600 text-white px-12 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(217,119,6,0.6)] hover:shadow-[0_0_30px_rgba(217,119,6,0.8)] hover:-translate-y-1">
                         {t('hero', 'makeDonation')}
-                    </button>
-                    <button className="bg-white hover:bg-gray-100 text-secondary border-2 border-secondary px-12 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:-translate-y-1">
+                    </button> */}
+                    <a
+                        href="https://rzp.io/rzp/mahamayadonation"
+                        // target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-secondary hover:bg-amber-600 text-white px-12 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(217,119,6,0.6)] hover:shadow-[0_0_30px_rgba(217,119,6,0.8)] hover:-translate-y-1 text-center"
+                    >
+                        {t('hero', 'makeDonation')}
+                    </a>
+                    {/* <button className="bg-white hover:bg-gray-100 text-secondary border-2 border-secondary px-12 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:-translate-y-1">
                         {t('hero', 'learnMore')}
-                    </button>
+                    </button> */}
+                    <a
+                        href="https://rzp.io/rzp/N3NPsQI"
+                        className="bg-white hover:bg-gray-100 text-secondary border-2 border-secondary px-12 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:-translate-y-1 text-center"
+                    >
+                        {t('hero', 'learnMore')}
+                    </a>
                 </div>
             </div>
 
