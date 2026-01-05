@@ -11,7 +11,28 @@ export const translations = {
             onlineServices: "Online Services",
             onlineSevas: "Online Sevas",
             seniorCitizen: "Sr. Citizen Darshan",
-            specialEntry: "Special Entry Darshan"
+            specialEntry: "Special Entry Darshan",
+            donateNow: "Donate Now",
+            manokamnaJyoti: "Wish Oil Light Fee 2026"
+        },
+        donateNowPage: {
+            title: "Shree Mahamaya Devi Temple",
+            subtitle: "We cordially invite devotees and followers to participate in sacred service activities through donations.",
+            usageTitle: "Your support is utilized for the following activities:",
+            point1: "Daily Puja and regular temple rituals",
+            point2: "Assistance for Gauseva (Cow care) and cattle rearing",
+            point3: "Renovation and reconstruction of temple premises",
+            point4: "Free and subsidized medical assistance",
+            point5: "Kanya Bhoj and Brahmin Bhoj",
+            point6: "Bhandara and Prasad distribution for devotees",
+            closing: "Every donation given by you is used directly for religious services and public welfare works. We are sincerely grateful for your cooperation and blessings.",
+            donateBtn: "Donate Now"
+        },
+        manokamnaJyotiPage: {
+            title: "Chaitra Navratri 2026: Manokamna Oil Jyoti",
+            subtitle: "During Navratri, there is a provision for the Manokamna Oil Jyoti Kalash to be kept burning continuously for 9 days without being extinguished.",
+            description: "It is believed that by lighting the Manokamna Oil Jyoti Kalash in the Shree temple, one attains virtuous fruits and any blessings of Bhagwati Raj Rajeshwari Maa Mahamaya remain on the entire family.",
+            donateBtn: "Donate Now"
         },
         hero: {
             title: "Shree Mahamaya Devi Temple",
@@ -179,7 +200,28 @@ export const translations = {
             onlineServices: "ऑनलाइन सेवाएं",
             onlineSevas: "ऑनलाइन सेवा",
             seniorCitizen: "वरिष्ठ नागरिक दर्शन",
-            specialEntry: "शीघ्र दर्शन / विशेष प्रवेश"
+            specialEntry: "शीघ्र दर्शन / विशेष प्रवेश",
+            donateNow: "अभी दान करें",
+            manokamnaJyoti: "मनोकामना तेल ज्योति शुल्क चैत्र नवरात्रि 2026"
+        },
+        donateNowPage: {
+            title: "श्री महामाया देवी मंदिर",
+            subtitle: "श्रद्धालुओं एवं भक्तों को सादर आमंत्रित करता है कि वे दान के माध्यम से पवित्र सेवा कार्यों में सहभागिता करें।",
+            usageTitle: "आपका सहयोग निम्न कार्यों के लिए उपयोग में लाया जाता है:",
+            point1: "दैनिक पूजा एवं मंदिर के नियमित अनुष्ठान",
+            point2: "गौसेवा एवं गौ-पालन हेतु सहायता",
+            point3: "मंदिर परिसर के जीर्णोद्धार एवं पुनर्निर्माण कार्य",
+            point4: "निःशुल्क एवं रियायती चिकित्सा सहायता",
+            point5: "कन्या भोज एवं ब्राह्मण भोज",
+            point6: "भक्तों हेतु भंडारा एवं प्रसाद वितरण",
+            closing: "आपके द्वारा दिया गया प्रत्येक दान धार्मिक सेवाओं तथा जनकल्याणकारी कार्यों में सीधा उपयोग किया जाता है। हम आपके सहयोग और आशीर्वाद के लिए हृदय से कृतज्ञ हैं।",
+            donateBtn: "अभी दान करें"
+        },
+        manokamnaJyotiPage: {
+            title: "चैत्र नवरात्रि 2026: मनोकामना तेल ज्योति",
+            subtitle: "नवरात्रि में मनोकामना तेल ज्योति कलश का नियम है कि यह पूरे 9 दिन तक बिना बुझाए जलाए रखने का प्रावधान है.",
+            description: "मान्यता है कि श्री मंदिर में मनोकामना तेल‌ ज्योति कलश प्रज्वलित करवाने से पुण्य फल की प्राप्ति होती है और भगवती राज राजेश्वरी मां महामाया की कृपादृष्टि एवं आशीर्वाद पूरे परिवार पर बना रहता है.",
+            donateBtn: "अभी दान करें"
         },
         hero: {
             title: "श्री महामाया देवी मंदिर",

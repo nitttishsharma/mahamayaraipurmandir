@@ -12,6 +12,8 @@ import Events from './pages/Events';
 import OnlineSevas from './pages/OnlineSevas';
 import SeniorCitizenDarshan from './pages/SeniorCitizenDarshan';
 import SpecialEntryDarshan from './pages/SpecialEntryDarshan';
+import DonateNow from './pages/DonateNow';
+import ManokamnaJyoti from './pages/ManokamnaJyoti';
 import VersionChecker from './components/VersionChecker';
 
 // ScrollToTop component to reset scroll position on route change
@@ -43,7 +45,7 @@ function App() {
       <Routes>
         {/* Public Routes with Navbar and Footer */}
         <Route element={
-          <div className="min-h-screen bg-cream selection:bg-primary selection:text-white flex flex-col">
+          <div className="min-h-screen bg-cream bg-temple-pattern selection:bg-primary selection:text-white flex flex-col">
             <Navbar />
             <main className="flex-grow">
               <Outlet />
@@ -61,6 +63,8 @@ function App() {
           <Route path="/online-sevas" element={<OnlineSevas />} />
           <Route path="/senior-citizen-darshan" element={<SeniorCitizenDarshan />} />
           <Route path="/special-entry-darshan" element={<SpecialEntryDarshan />} />
+          <Route path="/donate-now" element={<DonateNow />} />
+          <Route path="/manokamna-jyoti" element={<ManokamnaJyoti />} />
         </Route>
 
         {/* Admin Routes */}

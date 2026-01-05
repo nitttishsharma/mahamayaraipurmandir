@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Globe, ChevronDown, Video, UserCheck, CalendarCheck } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown, Video, UserCheck, CalendarCheck, Heart, Flame } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -22,6 +22,8 @@ const Navbar = () => {
         { name: t('navbar', 'onlineSevas'), href: '/online-sevas', icon: Video },
         { name: t('navbar', 'seniorCitizen'), href: '/senior-citizen-darshan', icon: UserCheck },
         { name: t('navbar', 'specialEntry'), href: '/special-entry-darshan', icon: CalendarCheck },
+        { name: t('navbar', 'donateNow'), href: '/donate-now', icon: Heart },
+        { name: t('navbar', 'manokamnaJyoti'), href: '/manokamna-jyoti', icon: Flame },
     ];
 
     const isActive = (path) => {
@@ -75,7 +77,7 @@ const Navbar = () => {
                             onMouseEnter={() => setIsDropdownOpen(true)}
                             onMouseLeave={() => setIsDropdownOpen(false)}
                         >
-                            <button className={`flex items-center space-x-1 font-sans font-medium hover:text-accent transition-colors duration-300 uppercase text-sm tracking-wide ${location.pathname.includes('darshan') || location.pathname.includes('sevas') ? 'text-accent' : ''}`}>
+                            <button className={`flex items-center space-x-1 font-sans font-medium hover:text-accent transition-colors duration-300 uppercase text-sm tracking-wide ${location.pathname.includes('darshan') || location.pathname.includes('sevas') || location.pathname.includes('donate-now') || location.pathname.includes('manokamna-jyoti') ? 'text-accent' : ''}`}>
                                 <span>{t('navbar', 'onlineServices')}</span>
                                 <ChevronDown size={14} className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                             </button>
