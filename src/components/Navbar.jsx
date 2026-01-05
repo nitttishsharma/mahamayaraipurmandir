@@ -108,9 +108,9 @@ const Navbar = () => {
                                 {language === 'en' ? 'हिन्दी' : 'English'}
                             </span>
                         </button>
-                        <Link to="/donation" className="inline-block bg-secondary hover:bg-amber-600 text-white px-8 py-3 rounded-full font-semibold transition-all shadow-[0_4px_14px_0_rgba(217,119,6,0.39)] hover:shadow-[0_6px_20px_rgba(217,119,6,0.23)] hover:-translate-y-1 transform border border-orange-400/30">
+                        {/* <Link to="/donation" className="inline-block bg-secondary hover:bg-amber-600 text-white px-8 py-3 rounded-full font-semibold transition-all shadow-[0_4px_14px_0_rgba(217,119,6,0.39)] hover:shadow-[0_6px_20px_rgba(217,119,6,0.23)] hover:-translate-y-1 transform border border-orange-400/30">
                             {t('navbar', 'donate')}
-                        </Link>
+                        </Link> */}
                     </div>
 
                     {/* Mobile Menu Button */}

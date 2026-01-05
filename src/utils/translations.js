@@ -44,7 +44,7 @@ export const translations = {
             title: "Sacred Heritage",
             description: "Discover the divine history and spiritual significance of our ancient temple",
             readHistory: "Read Full History",
-            yearsOld: "Years Old",
+            yearsOld: "Daily Darshan",
             text1: "The Shree Mahamaya Devi Temple stands as a testament to India's rich spiritual heritage, with its origins tracing back to the 8th-9th century...",
             text2: "Built during the Kalachuri era, the temple is not just a place of worship but a living chronicle of architecture and faith..."
         },
@@ -233,7 +233,7 @@ export const translations = {
             title: "पवित्र विरासत",
             description: "हमारे प्राचीन मंदिर के दिव्य इतिहास और आध्यात्मिक महत्व की खोज करें",
             readHistory: "पूरा इतिहास पढ़ें",
-            yearsOld: "वर्ष पुराना",
+            yearsOld: "दैनिक दर्शन",
             text1: "श्री महामाया देवी मंदिर भारत की समृद्ध आध्यात्मिक विरासत का प्रमाण है, जिसकी उत्पत्ति 8वीं-9वीं शताब्दी में हुई थी...",
             text2: "कलचुरी काल के दौरान निर्मित, यह मंदिर न केवल पूजा का स्थान है, बल्कि वास्तुकला और आस्था का एक जीवंत इतिहास है..."
         },

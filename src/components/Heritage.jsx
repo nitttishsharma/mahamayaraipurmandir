@@ -1,8 +1,34 @@
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import { supabase } from '../supabaseClient';
 
 const Heritage = () => {
     const { t } = useLanguage();
+    const [heritageImage, setHeritageImage] = useState('/images/home/Abouthome.jpeg');
+
+    useEffect(() => {
+        fetchHeritageImage();
+    }, []);
+
+    const fetchHeritageImage = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('site_settings')
+                .select('value')
+                .eq('key', 'heritage_image')
+                .single();
+
+            if (error && error.code !== 'PGRST116') throw error; // PGRST116 is "no rows returned"
+
+            if (data && data.value) {
+                setHeritageImage(data.value);
+            }
+        } catch (error) {
+            console.error('Error fetching heritage image:', error);
+        }
+    };
+
     return (
         <section id="about" className="py-24 bg-cream relative overflow-hidden">
             {/* ... (keep existing background code) ... */}
@@ -51,7 +77,7 @@ const Heritage = () => {
 
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
                             <img
-                                src="/images/home/Abouthome.jpeg"
+                                src={heritageImage}
                                 alt="Temple Deity"
                                 className="w-full h-[600px] object-cover object-top transform transition duration-700 group-hover:scale-105"
                             />
@@ -62,7 +88,7 @@ const Heritage = () => {
                         {/* Floating Badge */}
                         <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-xl border border-secondary/20 animate-bounce-slow">
                             <div className="text-center">
-                                <span className="block text-3xl font-serif font-bold text-primary">1200+</span>
+                                {/* <span className="block text-3xl font-serif font-bold text-primary">Daily Darshan</span> */}
                                 <span className="text-sm font-medium text-secondary uppercase tracking-wider">{t('heritage', 'yearsOld')}</span>
                             </div>
                         </div>

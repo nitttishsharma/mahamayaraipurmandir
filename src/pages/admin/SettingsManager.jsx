@@ -10,7 +10,8 @@ const SettingsManager = () => {
         facebook_live_url: '',
         popup_enabled: 'false',
         popup_image: '',
-        popup_link: ''
+        popup_link: '',
+        heritage_image: ''
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -62,6 +63,14 @@ const SettingsManager = () => {
         setSettings(prev => ({ ...prev, popup_image: url }));
     };
 
+    const handleHeritageImageUpload = async (url) => {
+        // If there was an existing image and we are replacing it (url is different), delete the old one
+        if (settings.heritage_image && settings.heritage_image !== url) {
+            await deleteImageFromStorage(settings.heritage_image);
+        }
+        setSettings(prev => ({ ...prev, heritage_image: url }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSaving(true);
@@ -73,7 +82,8 @@ const SettingsManager = () => {
                 { key: 'facebook_live_url', value: settings.facebook_live_url, description: 'URL for Facebook Live Stream' },
                 { key: 'popup_enabled', value: settings.popup_enabled, description: 'Enable/Disable Welcome Popup' },
                 { key: 'popup_image', value: settings.popup_image, description: 'Image URL for Welcome Popup' },
-                { key: 'popup_link', value: settings.popup_link, description: 'Optional link for Welcome Popup' }
+                { key: 'popup_link', value: settings.popup_link, description: 'Optional link for Welcome Popup' },
+                { key: 'heritage_image', value: settings.heritage_image, description: 'Image URL for Heritage Section' }
             ];
 
             for (const update of updates) {
@@ -141,6 +151,7 @@ const SettingsManager = () => {
 
                 {/* Welcome Popup Section */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-fit">
+                    {/* ... (keep existing popup settings code) ... */}
                     <h2 className="text-xl font-semibold mb-6 flex items-center text-gray-700">
                         <MessageSquare className="mr-2" size={24} />
                         Welcome Popup Settings
@@ -183,6 +194,29 @@ const SettingsManager = () => {
                                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
                                 />
                                 <p className="text-xs text-gray-500 mt-1">If set, clicking the popup image will redirect here.</p>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Heritage Section Section */}
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-fit">
+                    <h2 className="text-xl font-semibold mb-6 flex items-center text-gray-700">
+                        <ImageIcon className="mr-2" size={24} />
+                        Heritage Section Settings
+                    </h2>
+
+                    {loading ? (
+                        <div className="text-center py-10 text-gray-500">Loading settings...</div>
+                    ) : (
+                        <div className="space-y-6">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Heritage Image</label>
+                                <p className="text-xs text-gray-500 mb-3"> This image appears in the "Sacred Heritage" section on the homepage. </p>
+                                <ImageUploader
+                                    onUpload={handleHeritageImageUpload}
+                                    currentImage={settings.heritage_image}
+                                />
                             </div>
                         </div>
                     )}
