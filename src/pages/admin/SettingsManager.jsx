@@ -108,123 +108,125 @@ const SettingsManager = () => {
                 <h1 className="text-3xl font-bold text-gray-800">Site Settings</h1>
             </div>
 
-            <div className="max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="max-w-6xl flex flex-col lg:flex-row gap-8 items-start">
+                {/* Left Column: Live & Heritage */}
+                <div className="flex-1 w-full space-y-8">
+                    {/* Live Darshan Section */}
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h2 className="text-xl font-semibold mb-6 flex items-center text-gray-700">
+                            <LinkIcon className="mr-2" size={24} />
+                            Live Darshan Links
+                        </h2>
 
-                {/* Live Darshan Section */}
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-fit">
-                    <h2 className="text-xl font-semibold mb-6 flex items-center text-gray-700">
-                        <LinkIcon className="mr-2" size={24} />
-                        Live Darshan Links
-                    </h2>
-
-                    {loading ? (
-                        <div className="text-center py-10 text-gray-500">Loading settings...</div>
-                    ) : (
-                        <div className="space-y-6">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">YouTube Live Embed URL</label>
-                                <input
-                                    type="text"
-                                    name="youtube_live_url"
-                                    value={settings.youtube_live_url}
-                                    onChange={handleChange}
-                                    placeholder="https://www.youtube.com/embed/..."
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-                                />
-                                <p className="text-xs text-gray-500 mt-1">Paste the full embed URL.</p>
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Facebook Live Video URL</label>
-                                <input
-                                    type="text"
-                                    name="facebook_live_url"
-                                    value={settings.facebook_live_url}
-                                    onChange={handleChange}
-                                    placeholder="https://www.facebook.com/plugins/video.php?..."
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-                                />
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                {/* Welcome Popup Section */}
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-fit">
-                    {/* ... (keep existing popup settings code) ... */}
-                    <h2 className="text-xl font-semibold mb-6 flex items-center text-gray-700">
-                        <MessageSquare className="mr-2" size={24} />
-                        Welcome Popup Settings
-                    </h2>
-
-                    {loading ? (
-                        <div className="text-center py-10 text-gray-500">Loading settings...</div>
-                    ) : (
-                        <div className="space-y-6">
-                            <div>
-                                <label className="flex items-center space-x-3">
+                        {loading ? (
+                            <div className="text-center py-10 text-gray-500">Loading settings...</div>
+                        ) : (
+                            <div className="space-y-6">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">YouTube Live Embed URL</label>
                                     <input
-                                        type="checkbox"
-                                        name="popup_enabled"
-                                        checked={settings.popup_enabled === 'true'}
-                                        onChange={(e) => setSettings(prev => ({ ...prev, popup_enabled: e.target.checked ? 'true' : 'false' }))}
-                                        className="h-5 w-5 text-primary focus:ring-primary border-gray-300 rounded"
+                                        type="text"
+                                        name="youtube_live_url"
+                                        value={settings.youtube_live_url}
+                                        onChange={handleChange}
+                                        placeholder="https://www.youtube.com/embed/..."
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
                                     />
-                                    <span className="text-gray-700 font-medium">Enable Welcome Popup</span>
-                                </label>
-                                <p className="text-xs text-gray-500 mt-1 ml-8">Shows a popup when users visit the home page.</p>
-                            </div>
+                                    <p className="text-xs text-gray-500 mt-1">Paste the full embed URL.</p>
+                                </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Popup Image</label>
-                                <ImageUploader
-                                    onUpload={handleImageUpload}
-                                    currentImage={settings.popup_image}
-                                />
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Facebook Live Video URL</label>
+                                    <input
+                                        type="text"
+                                        name="facebook_live_url"
+                                        value={settings.facebook_live_url}
+                                        onChange={handleChange}
+                                        placeholder="https://www.facebook.com/plugins/video.php?..."
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                                    />
+                                </div>
                             </div>
+                        )}
+                    </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Popup Link (Optional)</label>
-                                <input
-                                    type="text"
-                                    name="popup_link"
-                                    value={settings.popup_link}
-                                    onChange={handleChange}
-                                    placeholder="https://..."
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-                                />
-                                <p className="text-xs text-gray-500 mt-1">If set, clicking the popup image will redirect here.</p>
+                    {/* Heritage Section Section */}
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h2 className="text-xl font-semibold mb-4 flex items-center text-gray-700">
+                            <ImageIcon className="mr-2" size={24} />
+                            Heritage Section Settings
+                        </h2>
+
+                        {loading ? (
+                            <div className="text-center py-10 text-gray-500">Loading settings...</div>
+                        ) : (
+                            <div className="space-y-6">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Heritage Image</label>
+                                    <p className="text-xs text-gray-500 mb-3"> This image appears in the "Sacred Heritage" section on the homepage. </p>
+                                    <ImageUploader
+                                        onUpload={handleHeritageImageUpload}
+                                        currentImage={settings.heritage_image}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
 
-                {/* Heritage Section Section */}
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-fit">
-                    <h2 className="text-xl font-semibold mb-6 flex items-center text-gray-700">
-                        <ImageIcon className="mr-2" size={24} />
-                        Heritage Section Settings
-                    </h2>
+                {/* Right Column: Welcome Popup */}
+                <div className="flex-1 w-full">
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h2 className="text-xl font-semibold mb-6 flex items-center text-gray-700">
+                            <MessageSquare className="mr-2" size={24} />
+                            Welcome Popup Settings
+                        </h2>
 
-                    {loading ? (
-                        <div className="text-center py-10 text-gray-500">Loading settings...</div>
-                    ) : (
-                        <div className="space-y-6">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Heritage Image</label>
-                                <p className="text-xs text-gray-500 mb-3"> This image appears in the "Sacred Heritage" section on the homepage. </p>
-                                <ImageUploader
-                                    onUpload={handleHeritageImageUpload}
-                                    currentImage={settings.heritage_image}
-                                />
+                        {loading ? (
+                            <div className="text-center py-10 text-gray-500">Loading settings...</div>
+                        ) : (
+                            <div className="space-y-6">
+                                <div className="p-4 bg-gray-50 rounded-xl border border-gray-100">
+                                    <label className="flex items-center space-x-3">
+                                        <input
+                                            type="checkbox"
+                                            name="popup_enabled"
+                                            checked={settings.popup_enabled === 'true'}
+                                            onChange={(e) => setSettings(prev => ({ ...prev, popup_enabled: e.target.checked ? 'true' : 'false' }))}
+                                            className="h-5 w-5 text-primary focus:ring-primary border-gray-300 rounded"
+                                        />
+                                        <span className="text-gray-700 font-bold">Enable Welcome Popup</span>
+                                    </label>
+                                    <p className="text-xs text-gray-500 mt-2 ml-8 italic">Check this to show a popup announcement when users visit the home page.</p>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Popup Image</label>
+                                    <ImageUploader
+                                        onUpload={handleImageUpload}
+                                        currentImage={settings.popup_image}
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Popup Link (Optional)</label>
+                                    <input
+                                        type="text"
+                                        name="popup_link"
+                                        value={settings.popup_link}
+                                        onChange={handleChange}
+                                        placeholder="https://..."
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-sm"
+                                    />
+                                    <p className="text-xs text-gray-500 mt-1">Direct users to a specific page when they click the popup.</p>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
-
             </div>
 
-            <div className="mt-8">
+            <div className="mt-12 pt-8 border-t border-gray-100">
                 {message.text && (
                     <div className={`p-4 rounded-lg mb-6 flex items-center max-w-4xl ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
                         {message.type === 'success' ? <CheckCircle className="mr-2" size={20} /> : <AlertCircle className="mr-2" size={20} />}
