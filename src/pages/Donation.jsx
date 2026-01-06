@@ -59,7 +59,7 @@ const Donation = () => {
     };
 
     return (
-        <section className="py-24 bg-cream relative overflow-hidden">
+        <section className="pt-40 pb-24 bg-cream relative overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 bg-temple-pattern bg-repeat opacity-5"></div>
 

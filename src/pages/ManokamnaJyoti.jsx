@@ -6,7 +6,7 @@ const ManokamnaJyoti = () => {
     const { t } = useLanguage();
 
     return (
-        <div className="min-h-screen bg-cream pt-32 pb-20">
+        <div className="min-h-screen bg-cream pt-40 pb-20">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-orange-100">
                     <div className="bg-gradient-to-r from-secondary to-orange-600 px-8 py-12 text-center text-white relative overflow-hidden">
