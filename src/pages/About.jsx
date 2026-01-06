@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { Link } from 'react-router-dom';
 
 const About = () => {
     const { t } = useLanguage();
@@ -118,9 +119,9 @@ const About = () => {
 
                     {/* View Gallery Button */}
                     <div className="text-center mt-16">
-                        <button className="bg-secondary hover:bg-amber-600 text-white px-10 py-4 rounded-full font-semibold text-lg transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
+                        <Link to="/gallery" className="bg-secondary hover:bg-amber-600 text-white px-10 py-4 rounded-full font-semibold text-lg transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
                             {t('about', 'viewGallery')}
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </section>
