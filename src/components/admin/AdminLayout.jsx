@@ -43,7 +43,7 @@ const AdminLayout = () => {
         { name: 'Gallery', path: '/admin/gallery', icon: <Image size={20} /> },
         { name: 'Committee', path: '/admin/committee', icon: <Users size={20} /> },
         // { name: 'Donations', path: '/admin/donations', icon: <Heart size={20} /> },
-        { name: 'Donation Leads', path: '/admin/donation-leads', icon: <Heart size={20} /> },
+        // { name: 'Donation Leads', path: '/admin/donation-leads', icon: <Heart size={20} /> },
         { name: 'Donations Received', path: '/admin/donations-received', icon: <Heart size={20} className="text-secondary" /> },
         { name: 'Settings', path: '/admin/settings', icon: <Settings size={20} /> },
     ];
@@ -53,7 +53,7 @@ const AdminLayout = () => {
             {/* Sidebar */}
             <aside className="w-64 bg-primary text-white shadow-xl flex flex-col z-20">
                 <div className="p-6 border-b border-white/10">
-                    <h1 className="font-serif text-xl font-bold tracking-wide">CMS Admin</h1>
+                    <h1 className="font-serif text-xl font-bold tracking-wide">Admin Panel</h1>
                     <p className="text-xs text-white/60 mt-1">Shree Mahamaya Temple</p>
                 </div>
 
