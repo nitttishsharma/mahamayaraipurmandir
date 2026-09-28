@@ -29,16 +29,16 @@ export const translations = {
             donateBtn: "Donate Now"
         },
         manokamnaJyotiPage: {
-            title: "Chaitra Navratri 2026: Manokamna Oil Jyoti",
+            title: "Sharadiya Navratri 2026: Manokamna Oil Jyoti",
             subtitle: "During Navratri, there is a provision for the Manokamna Oil Jyoti Kalash to be kept burning continuously for 9 days without being extinguished.",
             description: "It is believed that by lighting the Manokamna Oil Jyoti Kalash in the Shree temple, one attains virtuous fruits and any blessings of Bhagwati Raj Rajeshwari Maa Mahamaya remain on the entire family.",
-            donateBtn: "Donate Now"
+            donateBtn: "Donate Now for Manokamna Oil Jyoti Kalash"
         },
         hero: {
             title: "Shree Mahamaya Devi Temple",
             subtitle: "A Sacred Legacy Since 8th Century | Spiritual Harmony & Divine Blessings",
             makeDonation: "Make Donation",
-            learnMore: "Wish Oil Light Fee for Chaitra Navratri 2026"
+            learnMore: "Wish Oil Light Fee for Sharadiya Navratri 2026"
         },
         heritage: { // Added based on Heritage.jsx content
             title: "Sacred Heritage",
@@ -202,7 +202,7 @@ export const translations = {
             seniorCitizen: "वरिष्ठ नागरिक दर्शन",
             specialEntry: "शीघ्र दर्शन / विशेष प्रवेश",
             donateNow: "अभी दान करें",
-            manokamnaJyoti: "मनोकामना तेल ज्योति शुल्क चैत्र नवरात्रि 2026"
+            manokamnaJyoti: "मनोकामना तेल ज्योति शुल्क शारदीय नवरात्रि 2026"
         },
         donateNowPage: {
             title: "श्री महामाया देवी मंदिर",
@@ -218,16 +218,16 @@ export const translations = {
             donateBtn: "अभी दान करें"
         },
         manokamnaJyotiPage: {
-            title: "चैत्र नवरात्रि 2026: मनोकामना तेल ज्योति",
+            title: "शारदीय नवरात्रि 2026: मनोकामना तेल ज्योति",
             subtitle: "नवरात्रि में मनोकामना तेल ज्योति कलश का नियम है कि यह पूरे 9 दिन तक बिना बुझाए जलाए रखने का प्रावधान है.",
             description: "मान्यता है कि श्री मंदिर में मनोकामना तेल‌ ज्योति कलश प्रज्वलित करवाने से पुण्य फल की प्राप्ति होती है और भगवती राज राजेश्वरी मां महामाया की कृपादृष्टि एवं आशीर्वाद पूरे परिवार पर बना रहता है.",
-            donateBtn: "अभी दान करें"
+            donateBtn: "मनोकामना तेल ज्योति शुल्क जमा करें"
         },
         hero: {
             title: "श्री महामाया देवी मंदिर",
             subtitle: "8वीं शताब्दी से एक पवित्र विरासत | आध्यात्मिक सद्भाव और दिव्य आशीर्वाद",
             makeDonation: "दान करें",
-            learnMore: "मनोकामना तेल ज्योति शुल्क चैत्र नवरात्रि 2026"
+            learnMore: "मनोकामना तेल ज्योति शुल्क शारदीय नवरात्रि 2026"
         },
         heritage: {
             title: "पवित्र विरासत",
