@@ -55,29 +55,32 @@ const WelcomePopup = () => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-[99999] flex items-center justify-center px-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-            <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden max-w-lg w-full transform transition-all scale-100">
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={closePopup}>
+            <div
+                className="relative inline-block max-w-[95vw] sm:max-w-[85vw] md:max-w-[75vw] lg:max-w-[60vw] xl:max-w-[50vw] max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-100"
+                onClick={(e) => e.stopPropagation()}
+            >
                 <button
                     onClick={closePopup}
-                    className="absolute top-2 right-2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-1.5 transition-colors z-10"
+                    className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-white/90 hover:bg-white text-gray-800 rounded-full p-1 sm:p-1.5 transition-colors z-10 shadow-lg"
                     aria-label="Close Popup"
                 >
-                    <X size={24} />
+                    <X size={20} className="sm:w-6 sm:h-6" />
                 </button>
 
                 {popupData.link ? (
-                    <a href={popupData.link} target="_blank" rel="noopener noreferrer" className="block cursor-pointer">
+                    <a href={popupData.link} target="_blank" rel="noopener noreferrer" className="block">
                         <img
                             src={popupData.image}
                             alt="Welcome"
-                            className="w-full h-auto max-h-[80vh] object-contain"
+                            className="block w-auto h-auto max-w-full max-h-[85vh] rounded-2xl"
                         />
                     </a>
                 ) : (
                     <img
                         src={popupData.image}
                         alt="Welcome"
-                        className="w-full h-auto max-h-[80vh] object-contain"
+                        className="block w-auto h-auto max-w-full max-h-[85vh] rounded-2xl"
                     />
                 )}
             </div>

@@ -11,7 +11,11 @@ const SettingsManager = () => {
         popup_enabled: 'false',
         popup_image: '',
         popup_link: '',
-        heritage_image: ''
+        heritage_image: '',
+        hero_button_enabled: 'true',
+        hero_button_text_en: 'Wish Oil Light Fee for Sharadiya Navratri 2026',
+        hero_button_text_hi: 'मनोकामना तेल ज्योति शुल्क शारदीय नवरात्रि 2026',
+        hero_button_link: 'https://rzp.io/rzp/N3NPsQI'
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -83,7 +87,11 @@ const SettingsManager = () => {
                 { key: 'popup_enabled', value: settings.popup_enabled, description: 'Enable/Disable Welcome Popup' },
                 { key: 'popup_image', value: settings.popup_image, description: 'Image URL for Welcome Popup' },
                 { key: 'popup_link', value: settings.popup_link, description: 'Optional link for Welcome Popup' },
-                { key: 'heritage_image', value: settings.heritage_image, description: 'Image URL for Heritage Section' }
+                { key: 'heritage_image', value: settings.heritage_image, description: 'Image URL for Heritage Section' },
+                { key: 'hero_button_enabled', value: settings.hero_button_enabled, description: 'Enable/Disable Homepage Hero Button' },
+                { key: 'hero_button_text_en', value: settings.hero_button_text_en, description: 'Hero Button Text (English)' },
+                { key: 'hero_button_text_hi', value: settings.hero_button_text_hi, description: 'Hero Button Text (Hindi)' },
+                { key: 'hero_button_link', value: settings.hero_button_link, description: 'Hero Button Link URL' }
             ];
 
             for (const update of updates) {
@@ -168,6 +176,72 @@ const SettingsManager = () => {
                                         onUpload={handleHeritageImageUpload}
                                         currentImage={settings.heritage_image}
                                     />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                    {/* Hero Button Section */}
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h2 className="text-xl font-semibold mb-4 flex items-center text-gray-700">
+                            <LinkIcon className="mr-2" size={24} />
+                            Homepage Hero Button
+                        </h2>
+                        <p className="text-xs text-gray-500 mb-4">This is the white button shown on the homepage banner. Use it to promote events, donation drives, etc.</p>
+
+                        {loading ? (
+                            <div className="text-center py-10 text-gray-500">Loading settings...</div>
+                        ) : (
+                            <div className="space-y-4">
+                                <div className="p-4 bg-gray-50 rounded-xl border border-gray-100">
+                                    <label className="flex items-center space-x-3 cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            name="hero_button_enabled"
+                                            checked={settings.hero_button_enabled === 'true'}
+                                            onChange={(e) => setSettings(prev => ({ ...prev, hero_button_enabled: e.target.checked ? 'true' : 'false' }))}
+                                            className="h-5 w-5 text-primary focus:ring-primary border-gray-300 rounded"
+                                        />
+                                        <span className="text-gray-700 font-bold">Enable Hero Event Button</span>
+                                    </label>
+                                    <p className="text-xs text-gray-500 mt-2 ml-8 italic">
+                                        When disabled, only the Donate Now button will appear centered in the hero banner.
+                                    </p>
+                                </div>
+
+                                <div className={settings.hero_button_enabled === 'true' ? 'space-y-4' : 'space-y-4 opacity-50 pointer-events-none'}>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Button Text (English)</label>
+                                        <input
+                                            type="text"
+                                            name="hero_button_text_en"
+                                            value={settings.hero_button_text_en}
+                                            onChange={handleChange}
+                                            placeholder="e.g. Wish Oil Light Fee for Sharadiya Navratri 2026"
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-sm"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Button Text (Hindi)</label>
+                                        <input
+                                            type="text"
+                                            name="hero_button_text_hi"
+                                            value={settings.hero_button_text_hi}
+                                            onChange={handleChange}
+                                            placeholder="e.g. मनोकामना तेल ज्योति शुल्क शारदीय नवरात्रि 2026"
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-sm"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Button Link URL</label>
+                                        <input
+                                            type="text"
+                                            name="hero_button_link"
+                                            value={settings.hero_button_link}
+                                            onChange={handleChange}
+                                            placeholder="https://rzp.io/rzp/..."
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-sm"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         )}

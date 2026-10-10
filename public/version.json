@@ -1,7 +1,17 @@
 {
-    "version": "1.4.0",
-    "releaseDate": "2026-01-02",
+    "version": "1.5.0",
+    "releaseDate": "2026-10-10",
     "changelog": [
+        {
+            "version": "1.5.0",
+            "date": "2026-10-10",
+            "changes": [
+                "Fixed welcome popup whitespace and improved responsiveness across all aspect ratios",
+                "Added dynamic control and enable/disable toggle for homepage hero event button in admin settings",
+                "Automatically center Make Donation button when hero event button is disabled",
+                "Removed Special Entry Darshan section"
+            ]
+        },
         {
             "version": "1.4.0",
             "date": "2026-01-02",

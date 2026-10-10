@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { supabase } from '../supabaseClient';
 
 const Hero = () => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const heroImages = [
         "/images/home/Carosle1.jpg",
         "/images/home/Carole2.jpg"
     ];
 
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [heroButton, setHeroButton] = useState({
+        enabled: 'true',
+        text_en: 'Wish Oil Light Fee for Sharadiya Navratri 2026',
+        text_hi: 'मनोकामना तेल ज्योति शुल्क शारदीय नवरात्रि 2026',
+        link: 'https://rzp.io/rzp/N3NPsQI'
+    });
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -17,6 +24,41 @@ const Hero = () => {
 
         return () => clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        const fetchHeroButton = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('site_settings')
+                    .select('*')
+                    .in('key', ['hero_button_enabled', 'hero_button_text_en', 'hero_button_text_hi', 'hero_button_link']);
+
+                if (error) throw error;
+
+                if (data && data.length > 0) {
+                    const btnSettings = {};
+                    data.forEach(item => {
+                        btnSettings[item.key] = item.value;
+                    });
+                    setHeroButton(prev => ({
+                        enabled: btnSettings.hero_button_enabled !== undefined ? btnSettings.hero_button_enabled : prev.enabled,
+                        text_en: btnSettings.hero_button_text_en !== undefined ? btnSettings.hero_button_text_en : prev.text_en,
+                        text_hi: btnSettings.hero_button_text_hi !== undefined ? btnSettings.hero_button_text_hi : prev.text_hi,
+                        link: btnSettings.hero_button_link !== undefined ? btnSettings.hero_button_link : prev.link
+                    }));
+                }
+            } catch (err) {
+                console.error('Error loading hero button settings:', err);
+            }
+        };
+
+        fetchHeroButton();
+    }, []);
+
+    // Determine button text based on current language
+    const heroButtonText = language === 'hi' ? heroButton.text_hi : heroButton.text_en;
+    // Show button only if enabled and both text and link are available
+    const showHeroButton = heroButton.enabled === 'true' && heroButtonText && heroButton.link;
 
     return (
         <section className="relative h-screen bg-primary overflow-hidden">
@@ -51,7 +93,7 @@ const Hero = () => {
                     </p>
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-8 animate-fade-in-up delay-200">
+                <div className="flex flex-col sm:flex-row justify-center items-center gap-6 md:gap-8 animate-fade-in-up delay-200">
                     {/* <button className="bg-secondary hover:bg-amber-600 text-white px-12 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(217,119,6,0.6)] hover:shadow-[0_0_30px_rgba(217,119,6,0.8)] hover:-translate-y-1">
                         {t('hero', 'makeDonation')}
                     </button> */}
@@ -63,15 +105,14 @@ const Hero = () => {
                     >
                         {t('hero', 'makeDonation')}
                     </a>
-                    {/* <button className="bg-white hover:bg-gray-100 text-secondary border-2 border-secondary px-12 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:-translate-y-1">
-                        {t('hero', 'learnMore')}
-                    </button> */}
-                    <a
-                        href="https://rzp.io/rzp/N3NPsQI"
-                        className="bg-white hover:bg-gray-100 text-secondary border-2 border-secondary px-12 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:-translate-y-1 text-center"
-                    >
-                        {t('hero', 'learnMore')}
-                    </a>
+                    {showHeroButton && (
+                        <a
+                            href={heroButton.link}
+                            className="bg-white hover:bg-gray-100 text-secondary border-2 border-secondary px-12 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:-translate-y-1 text-center"
+                        >
+                            {heroButtonText}
+                        </a>
+                    )}
                 </div>
             </div>
 
