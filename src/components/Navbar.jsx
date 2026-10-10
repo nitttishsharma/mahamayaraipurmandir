@@ -21,7 +21,7 @@ const Navbar = () => {
     const onlineServices = [
         { name: t('navbar', 'onlineSevas'), href: '/online-sevas', icon: Video },
         { name: t('navbar', 'seniorCitizen'), href: '/senior-citizen-darshan', icon: UserCheck },
-        { name: t('navbar', 'specialEntry'), href: '/special-entry-darshan', icon: CalendarCheck },
+        // { name: t('navbar', 'specialEntry'), href: '/special-entry-darshan', icon: CalendarCheck },
         { name: t('navbar', 'donateNow'), href: '/donate-now', icon: Heart },
         { name: t('navbar', 'manokamnaJyoti'), href: '/manokamna-jyoti', icon: Flame },
     ];

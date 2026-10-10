@@ -11,7 +11,7 @@ export const translations = {
             onlineServices: "Online Services",
             onlineSevas: "Online Sevas",
             seniorCitizen: "Sr. Citizen Darshan",
-            specialEntry: "Special Entry Darshan",
+            // specialEntry: "Special Entry Darshan",
             donateNow: "Donate Now",
             manokamnaJyoti: "Wish Oil Light Fee 2026"
         },
@@ -167,26 +167,26 @@ export const translations = {
             assistance: "For any special assistance prior to your visit, please contact us:",
             callHelpline: "Call Helpline"
         },
-        specialEntryPage: {
-            title: "Special Entry Darshan",
-            subtitle: "Beat the rush and experience a divine and peaceful Darshan.",
-            sheeghraTitle: "Sheeghra Darshan",
-            expressEntry: "Express Entry",
-            person: "/ person",
-            sheeghraFeature1: "Dedicated Queue Line",
-            sheeghraFeature2: "Closer View of Deity",
-            sheeghraFeature3: "Laddu Prasadam included",
-            bookingComingSoon: "Booking Coming Soon",
-            visheshTitle: "Vishesh Pooja",
-            specialRituals: "Special Rituals",
-            mostPopular: "Most Popular",
-            family: "/ family",
-            visheshFeature1: "Sankalp Pooja in your Name",
-            visheshFeature2: "Priority Darshan for 4 members",
-            visheshFeature3: "Special Prasadam Pack",
-            onlineBookingTitle: "Online Booking Feature",
-            onlineBookingDesc: "The online ticket booking facility is currently under development. Tickets for Special Darshan can be purchased directly from the temple counter near the East Gate."
-        }
+        // specialEntryPage: {
+        //     title: "Special Entry Darshan",
+        //     subtitle: "Beat the rush and experience a divine and peaceful Darshan.",
+        //     sheeghraTitle: "Sheeghra Darshan",
+        //     expressEntry: "Express Entry",
+        //     person: "/ person",
+        //     sheeghraFeature1: "Dedicated Queue Line",
+        //     sheeghraFeature2: "Closer View of Deity",
+        //     sheeghraFeature3: "Laddu Prasadam included",
+        //     bookingComingSoon: "Booking Coming Soon",
+        //     visheshTitle: "Vishesh Pooja",
+        //     specialRituals: "Special Rituals",
+        //     mostPopular: "Most Popular",
+        //     family: "/ family",
+        //     visheshFeature1: "Sankalp Pooja in your Name",
+        //     visheshFeature2: "Priority Darshan for 4 members",
+        //     visheshFeature3: "Special Prasadam Pack",
+        //     onlineBookingTitle: "Online Booking Feature",
+        //     onlineBookingDesc: "The online ticket booking facility is currently under development. Tickets for Special Darshan can be purchased directly from the temple counter near the East Gate."
+        // }
     },
     hi: {
         navbar: {
@@ -200,7 +200,7 @@ export const translations = {
             onlineServices: "ऑनलाइन सेवाएं",
             onlineSevas: "ऑनलाइन सेवा",
             seniorCitizen: "वरिष्ठ नागरिक दर्शन",
-            specialEntry: "शीघ्र दर्शन / विशेष प्रवेश",
+            // specialEntry: "शीघ्र दर्शन / विशेष प्रवेश",
             donateNow: "अभी दान करें",
             manokamnaJyoti: "मनोकामना तेल ज्योति शुल्क शारदीय नवरात्रि 2026"
         },
@@ -356,25 +356,25 @@ export const translations = {
             assistance: "अपनी यात्रा से पहले किसी भी विशेष सहायता के लिए, कृपया हमसे संपर्क करें:",
             callHelpline: "हेल्पलाइन पर कॉल करें"
         },
-        specialEntryPage: {
-            title: "शीघ्र दर्शन / विशेष प्रवेश",
-            subtitle: "भीड़ से बचें और माँ के विशेष दर्शन का लाभ उठाएं।",
-            sheeghraTitle: "शीघ्र दर्शन",
-            expressEntry: "त्वरित प्रवेश",
-            person: "/ व्यक्ति",
-            sheeghraFeature1: "समर्पित कतार लाइन",
-            sheeghraFeature2: "देवता के निकट दर्शन",
-            sheeghraFeature3: "लड्डू प्रसादम शामिल",
-            bookingComingSoon: "बुकिंग जल्द आ रही है",
-            visheshTitle: "विशेष पूजा",
-            specialRituals: "विशेष अनुष्ठान",
-            mostPopular: "सबसे लोकप्रिय",
-            family: "/ परिवार",
-            visheshFeature1: "आपके नाम पर संकल्प पूजा",
-            visheshFeature2: "4 सदस्यों के लिए प्राथमिकता दर्शन",
-            visheshFeature3: "विशेष प्रसादम पैक",
-            onlineBookingTitle: "ऑनलाइन बुकिंग सुविधा",
-            onlineBookingDesc: "ऑनलाइन टिकट बुकिंग सुविधा वर्तमान में विकास के अधीन है। विशेष दर्शन के लिए टिकट सीधे पूर्वी द्वार के पास मंदिर काउंटर से खरीदे जा सकते हैं।"
-        }
+        // specialEntryPage: {
+        //     title: "शीघ्र दर्शन / विशेष प्रवेश",
+        //     subtitle: "भीड़ से बचें और माँ के विशेष दर्शन का लाभ उठाएं।",
+        //     sheeghraTitle: "शीघ्र दर्शन",
+        //     expressEntry: "त्वरित प्रवेश",
+        //     person: "/ व्यक्ति",
+        //     sheeghraFeature1: "समर्पित कतार लाइन",
+        //     sheeghraFeature2: "देवता के निकट दर्शन",
+        //     sheeghraFeature3: "लड्डू प्रसादम शामिल",
+        //     bookingComingSoon: "बुकिंग जल्द आ रही है",
+        //     visheshTitle: "विशेष पूजा",
+        //     specialRituals: "विशेष अनुष्ठान",
+        //     mostPopular: "सबसे लोकप्रिय",
+        //     family: "/ परिवार",
+        //     visheshFeature1: "आपके नाम पर संकल्प पूजा",
+        //     visheshFeature2: "4 सदस्यों के लिए प्राथमिकता दर्शन",
+        //     visheshFeature3: "विशेष प्रसादम पैक",
+        //     onlineBookingTitle: "ऑनलाइन बुकिंग सुविधा",
+        //     onlineBookingDesc: "ऑनलाइन टिकट बुकिंग सुविधा वर्तमान में विकास के अधीन है। विशेष दर्शन के लिए टिकट सीधे पूर्वी द्वार के पास मंदिर काउंटर से खरीदे जा सकते हैं।"
+        // }
     }
 };

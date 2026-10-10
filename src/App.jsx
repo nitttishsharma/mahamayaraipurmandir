@@ -11,7 +11,7 @@ import Contact from './pages/Contact';
 import Events from './pages/Events';
 import OnlineSevas from './pages/OnlineSevas';
 import SeniorCitizenDarshan from './pages/SeniorCitizenDarshan';
-import SpecialEntryDarshan from './pages/SpecialEntryDarshan';
+// import SpecialEntryDarshan from './pages/SpecialEntryDarshan';
 import DonateNow from './pages/DonateNow';
 import ManokamnaJyoti from './pages/ManokamnaJyoti';
 import VersionChecker from './components/VersionChecker';
@@ -63,7 +63,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/online-sevas" element={<OnlineSevas />} />
           <Route path="/senior-citizen-darshan" element={<SeniorCitizenDarshan />} />
-          <Route path="/special-entry-darshan" element={<SpecialEntryDarshan />} />
+          {/* <Route path="/special-entry-darshan" element={<SpecialEntryDarshan />} /> */}
           <Route path="/donate-now" element={<DonateNow />} />
           <Route path="/manokamna-jyoti" element={<ManokamnaJyoti />} />
         </Route>
